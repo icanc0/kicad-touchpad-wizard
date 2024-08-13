@@ -28,6 +28,8 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
 
         self.AddParam("Options",  "drill hole", self.uBool, True)
         self.AddParam("Options",  "add lines", self.uBool, True)
+        self.AddParam("Options",  "add front wiring", self.uBool, True)
+        self.AddParam("Options",  "add back wiring", self.uBool, True)
 
         self.AddParam("Triangle debug", "debug", self.uBool, True)
         self.AddParam("Triangle debug", "angle", self.uInteger, 135, min_value=0, max_value=360)
@@ -94,8 +96,9 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
 
         # Top 
         for i in range(edge_segments_x):
+            x = -width/2 + i * (pad_width * 2) + pad_width
+
             for j in range(0, edge_segments_y):
-                x = -width/2 + i * (pad_width * 2) + pad_width
                 y = -height/2 + pad_height/2 + j * (pad_height * 2)
                 
                 pos = VECTOR2I(int(x), int(y - half_clearance))
@@ -107,22 +110,24 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
                     via_pos = VECTOR2I(int(x), int(y))
                     self.AddVia(module, via_pos, via_size, via_drill, "v_c" + str(i))
 
+                if self.parameters['Options']["add back wiring"]:
                     self.DrawHorizontalLine(VECTOR2I(int(x), int(y + pad_height + clearance)), VECTOR2I(int(x), int(y)), pcbnew.B_Cu)
 
         # Right 
         for i in range(edge_segments_y):
+            y = -height/2 + i * (pad_height * 2) + pad_height
+
             for j in range(0, edge_segments_x):
                 x = width/2 - pad_width/2 - j * (pad_width * 2)
-                y = -height/2 + i * (pad_height * 2) + pad_height
                 pos = VECTOR2I(int(x + half_clearance), int(y))
                 pad = self.smdTrianglePad(module, (int(pad_width - clearance), int(pad_height - clearance)), pos, "r" + str(i), 90) # 270
                 module.Add(pad)
 
         # Bottom 
         for i in range(edge_segments_x):
-            for j in range(0, edge_segments_y):
+            x = -width/2 + i * (pad_width * 2) + pad_width
 
-                x = -width/2 + i * (pad_width * 2) + pad_width
+            for j in range(0, edge_segments_y):
                 y = height/2 - pad_height/2 - j * (pad_height * 2)
                 pos = VECTOR2I(int(x), int(y + half_clearance))
                 pad = self.smdTrianglePad(module, (int(pad_height - clearance), int(pad_width - clearance)), pos, "c" + str(i), 45) # 45
@@ -136,15 +141,15 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         for i in range(edge_segments_y):
             y = -height/2 + i * (pad_height * 2) + pad_height
 
+            if self.parameters['Options']["add front wiring"]:
+                self.DrawHorizontalLine(VECTOR2I(int(-width/2), int(y)), VECTOR2I(int(width/2), int(y)), pcbnew.F_Cu)
+            
             for j in range(0, edge_segments_x):
 
                 x = -width/2 + pad_width/2 + j * (pad_width * 2)
                 pos = VECTOR2I(int(x - half_clearance), int(y))
                 pad = self.smdTrianglePad(module, (int(pad_width - clearance), int(pad_height - clearance)), pos, "r" + str(i), 0) # 180
                 module.Add(pad)
-
-
-            self.DrawHorizontalLine(VECTOR2I(int(-width/2), int(y)), VECTOR2I(int(width/2), int(y)), pcbnew.F_Cu)
 
     def BuildThisFootprint(self):
         height = self.pads["height"]
