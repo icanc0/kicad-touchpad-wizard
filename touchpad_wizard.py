@@ -1,218 +1,162 @@
-#
-# This program source code file is part of KiCad, a free EDA CAD application.
-#
-# Copyright (C) 2012-2023 KiCad Developers
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, you may find one here:
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-# or you may search the http://www.gnu.org website for the version 2 license,
-# or you may write to the Free Software Foundation, Inc.,
-# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
-#
-
 from pcbnew import *
 import FootprintWizardBase
 import pcbnew
 
-class TouchpadWizard(FootprintWizardBase.FootprintWizard):
+class TrackpadWizard(FootprintWizardBase.FootprintWizard):
 
     def GetName(self):
-        """
-        Return footprint name.
-        This is specific to each footprint class, you need to implement this
-        """
-        return 'Touchpad'
+        return 'Trackpad'
 
     def GetDescription(self):
-        """
-        Return footprint description.
-        This is specific to each footprint class, you need to implement this
-        """
-        return 'Touchpad wizard'
+        return 'Capacitive Trackpad wizard'
 
     def GetValue(self):
-        return "Touchpad-{sx_by_sy}_{x:g}x{y:g}mm".format(
-            sx = self.pads['steps X'],
-            sy = self.pads['steps Y'],
-
-            x = pcbnew.ToMM(self.pads['length']),
-            y = pcbnew.ToMM(self.pads['width'])
-            )
+        return "Trackpad-{w:g}x{h:g}mm".format(
+            w = pcbnew.ToMM(self.pads['width']),
+            h = pcbnew.ToMM(self.pads['height'])
+        )
 
     def GenerateParameterList(self):
-        self.AddParam("Pads", "steps X", self.uInteger, 4, min_value=2)
-        self.AddParam("Pads", "steps Y", self.uInteger, 4, min_value=2)
-        self.AddParam("Pads", "bands", self.uInteger, 2, min_value=1)
-        self.AddParam("Pads", "width", self.uMM, 50)
-        self.AddParam("Pads", "length", self.uMM, 50)
-        self.AddParam("Pads", "clearance", self.uMM, 1)
+        self.AddParam("Trackpad", "width", self.uMM, 50)
+        self.AddParam("Trackpad", "height", self.uMM, 20)
+        self.AddParam("Trackpad", "edge segments x", self.uInteger, 5, min_value=4)
+        self.AddParam("Trackpad", "edge segments y", self.uInteger, 5, min_value=4)
+        self.AddParam("Trackpad", "via diameter", self.uMM, 0.5, min_value=0.2)
+        self.AddParam("Trackpad", "via drill", self.uMM, 0.2, min_value=0.1)
+        self.AddParam("Trackpad", "clearance", self.uMM, 0.2)
+        self.AddParam("Trackpad", "line width", self.uMM, 0.127, min_value=0.1)
+
+        self.AddParam("Options",  "drill hole", self.uBool, True)
+        self.AddParam("Options",  "add lines", self.uBool, True)
+
+        self.AddParam("Triangle debug", "debug", self.uBool, True)
+        self.AddParam("Triangle debug", "angle", self.uInteger, 135, min_value=0, max_value=360)
 
     @property
     def pads(self):
-        return self.parameters['Pads']
+        return self.parameters['Trackpad']
 
-    # build a rectangular pad
-    def smdRectPad(self,module,size,pos,name):
+    def smdTrianglePad(self, module, size, pos, name, rotation):
         pad = PAD(module)
-        pad.SetSize(size)
-        pad.SetShape(PAD_SHAPE_RECT)
+        pad.SetSize(VECTOR2I(size[0], size[1]))
+        pad.SetShape(PAD_SHAPE_TRAPEZOID) 
         pad.SetAttribute(PAD_ATTRIB_SMD)
         pad.SetLayerSet(pad.ConnSMDMask())
         pad.SetPosition(pos)
         pad.SetName(name)
+        pad.SetOrientation(pcbnew.EDA_ANGLE(rotation * 10))  # wtf is proper units!!!
+
+        if self.parameters['Triangle debug']["debug"]:
+            pad.SetDelta(VECTOR2I(size[1], 0))  # mfw MFW MFW MFW
+
         return pad
+    
+    def AddVia(self, module, pos, size, drill, name):
+        via = PAD(module)
+        via.SetSize(VECTOR2I(size, size))
+        via.SetShape(PAD_SHAPE_CIRCLE)
+        via.SetAttribute(PAD_ATTRIB_PTH)
+        via.SetDrillSize(VECTOR2I(drill, drill))
+        via.SetLayerSet(via.PTHMask())
+        via.SetPosition(pos)
+        via.SetName(name)
+        module.Add(via)
 
+    def DrawHorizontalLine(self, start, end, layer):
+        line = pcbnew.PCB_SHAPE(self.module)
+        line.SetShape(SHAPE_T_SEGMENT)
+        line.SetStart(start)
+        line.SetEnd(end)
+        line.SetLayer(layer)
+        line.SetWidth(int(self.pads["line width"]))
+        self.module.Add(line)
 
-    def smdTrianglePad(self,module,size,pos,name,up_down=1,left_right=0):
-        pad = PAD(module)
-        pad.SetSize(VECTOR2I(size[0],size[1]))
-        pad.SetShape(PAD_SHAPE_TRAPEZOID)
-        pad.SetAttribute(PAD_ATTRIB_SMD)
-        pad.SetLayerSet(pad.ConnSMDMask())
-        pad.SetPosition(pos)
-        pad.SetName(name)
-        pad.SetDelta(VECTOR2I(left_right*size[1],up_down*size[0]))
-        return pad
-
-
-    # This method checks the parameters provided to wizard and set errors
     def CheckParameters(self):
-        #TODO - implement custom checks
         pass
 
-    # The start pad is made of a rectangular pad plus a couple of
-    # triangular pads facing tips on the middle/right of the first
-    # rectangular pad
-    def AddStartPad(self,position,touch_width,step_length,clearance,name):
+    def BuildAll(self):
         module = self.module
-        actual_length = step_length - clearance
-
-        size_pad = VECTOR2I( (int)(actual_length/2.0+(actual_length/3)), (int)(touch_width) )
+        width = self.pads["width"]
+        height = self.pads["height"]
         
-        pad = self.smdRectPad(module,
-                              size_pad,
-                              (VECTOR2I(position)-VECTOR2I( (int)(actual_length/6),0)),
-                              name)
-        module.Add(pad)
+        edge_segments_x = self.pads["edge segments x"]
+        edge_segments_y = self.pads["edge segments y"]
 
-        size_pad = VECTOR2I((int)(actual_length/2.0),(int)(touch_width))
+        clearance = self.pads["clearance"]
+        half_clearance = clearance / 2
 
-        tp = self.smdTrianglePad(module,
-                                 VECTOR2I(size_pad[0], (int)(size_pad[1]/2)),
-                                 VECTOR2I(position)+VECTOR2I( (int)(size_pad[0]/2), (int)(size_pad[1]/4) ),
-                                name)
-        module.Add(tp)
+        # for pads, further subdivision is needed since 4 pads occupy 1/4 of each grid
+        pad_width = width / (edge_segments_x * 2 )
+        pad_height = height / (edge_segments_y * 2)
+
+        via_size = self.pads["via diameter"]
+        via_drill = self.pads["via drill"]
+
+        # Top 
+        for i in range(edge_segments_x):
+            for j in range(0, edge_segments_y):
+                x = -width/2 + i * (pad_width * 2) + pad_width
+                y = -height/2 + pad_height/2 + j * (pad_height * 2)
+                
+                pos = VECTOR2I(int(x), int(y - half_clearance))
+                pad = self.smdTrianglePad(module, (int(pad_height  - clearance), int(pad_width - clearance)), pos, "c" + str(i), 135) # 135
+                module.Add(pad)
+                # drill hole at the center
+
+                if self.parameters['Options']["drill hole"]:
+                    via_pos = VECTOR2I(int(x), int(y))
+                    self.AddVia(module, via_pos, via_size, via_drill, "v_c" + str(i))
+
+                    self.DrawHorizontalLine(VECTOR2I(int(x), int(y + pad_height + clearance)), VECTOR2I(int(x), int(y)), pcbnew.B_Cu)
+
+        # Right 
+        for i in range(edge_segments_y):
+            for j in range(0, edge_segments_x):
+                x = width/2 - pad_width/2 - j * (pad_width * 2)
+                y = -height/2 + i * (pad_height * 2) + pad_height
+                pos = VECTOR2I(int(x + half_clearance), int(y))
+                pad = self.smdTrianglePad(module, (int(pad_width - clearance), int(pad_height - clearance)), pos, "r" + str(i), 90) # 270
+                module.Add(pad)
+
+        # Bottom 
+        for i in range(edge_segments_x):
+            for j in range(0, edge_segments_y):
+
+                x = -width/2 + i * (pad_width * 2) + pad_width
+                y = height/2 - pad_height/2 - j * (pad_height * 2)
+                pos = VECTOR2I(int(x), int(y + half_clearance))
+                pad = self.smdTrianglePad(module, (int(pad_height - clearance), int(pad_width - clearance)), pos, "c" + str(i), 45) # 45
+                module.Add(pad)
+
+                if self.parameters['Options']["drill hole"]:
+                    via_pos = VECTOR2I(int(x), int(y))
+                    self.AddVia(module, via_pos, via_size, via_drill, "v_c" + str(i))
+
+        # Left 
+        for i in range(edge_segments_y):
+            y = -height/2 + i * (pad_height * 2) + pad_height
+
+            for j in range(0, edge_segments_x):
+
+                x = -width/2 + pad_width/2 + j * (pad_width * 2)
+                pos = VECTOR2I(int(x - half_clearance), int(y))
+                pad = self.smdTrianglePad(module, (int(pad_width - clearance), int(pad_height - clearance)), pos, "r" + str(i), 0) # 180
+                module.Add(pad)
 
 
-        tp = self.smdTrianglePad(module,
-                                 VECTOR2I(size_pad[0],(int)(size_pad[1]/2) ),
-                                 position+VECTOR2I( (int)(size_pad[0]/2), (int)(-size_pad[1]/4) ),
-                                name
-                                ,-1)
-        module.Add(tp)
+            self.DrawHorizontalLine(VECTOR2I(int(-width/2), int(y)), VECTOR2I(int(width/2), int(y)), pcbnew.F_Cu)
 
-    # compound a "start pad" shape plus a triangle on the left, pointing to
-    # the previous touch-pad
-    def AddMiddlePad(self,position,touch_width,step_length,clearance,name):
-        module = self.module
-        step_length = step_length - clearance
-        size_pad = VECTOR2I((int)(step_length/2.0),(int)(touch_width))
-
-        size_pad = VECTOR2I((int)(step_length/2.0),(int)(touch_width))
-        pad = self.smdRectPad(module,size_pad,position,name)
-        module.Add(pad)
-
-        tp = self.smdTrianglePad(module,VECTOR2I(size_pad[0],(int)(size_pad[1]/2)),
-                                 position+VECTOR2I( (int)(size_pad[0]/2), (int)(size_pad[1]/4) ),
-                                name)
-        module.Add(tp)
-        tp = self.smdTrianglePad(module,VECTOR2I(size_pad[0],(int)(size_pad[1]/2)),
-                                 position+VECTOR2I( (int)(size_pad[0]/2), (int)(-size_pad[1]/4) ),
-                                name
-                                ,-1)
-        module.Add(tp)
-
-        tp = self.smdTrianglePad(module,VECTOR2I(size_pad[0],(int)(size_pad[1]/2)),
-                                        position+VECTOR2I( -size_pad[0],0),
-                                        name,
-                                        0,
-                                        -1)
-        module.Add(tp)
-
-
-    def AddFinalPad(self,position,touch_width,step_length,clearance,name):
-        module = self.module
-        step_length = step_length - clearance
-        size_pad = VECTOR2I((int)(step_length/2.0),(int)(touch_width))
-
-        pad = self.smdRectPad(module,
-                              VECTOR2I( (int)(size_pad[0]+(step_length/3)),size_pad[1]),
-                              position+VECTOR2I( (int)(step_length/6),0),
-                              name)
-        module.Add(pad)
-
-        tp = self.smdTrianglePad(module,VECTOR2I(size_pad[0],(int)(size_pad[1]/2)),
-                                        position+VECTOR2I(-size_pad[0],0),
-                                        name,
-                                        0,
-                                        -1)
-        module.Add(tp)
-
-    def AddStrip(self,pos,steps,touch_width,step_length,touch_clearance):
-        self.AddStartPad(pos,touch_width,step_length,touch_clearance,"1")
-
-        for n in range(2,steps):
-            pos = pos + VECTOR2I((int)(step_length),0)
-            self.AddMiddlePad(pos,touch_width,step_length,touch_clearance,str(n))
-
-        pos = pos + VECTOR2I((int)(step_length),0)
-        self.AddFinalPad(pos,touch_width,step_length,touch_clearance,str(steps))
-
-    # build the footprint from parameters
-    # FIX ME: the X and Y position of the footprint can be better.
     def BuildThisFootprint(self):
+        height = self.pads["height"]
 
-        steps             = self.pads["steps"]
-        bands             = self.pads["bands"]
-        touch_width       = self.pads["width"]
-        touch_length      = self.pads["length"]
-        touch_clearance   = self.pads["clearance"]
+        self.BuildAll()
 
-        step_length = float(touch_length) / float(steps)
-
+        # (i copied this from touch slider wizard LMAO) 
+        self.module.SetAttributes(FP_SMD)
+        
         t_size = self.GetTextSize()
         w_text = self.draw.GetLineThickness()
-        ypos = touch_width/2 + t_size/2 + w_text
-        self.draw.Value(0, -ypos, t_size)
-        ypos += t_size + w_text*2
-        self.draw.Reference(0, -ypos, t_size)
+        self.draw.Value(0, height/2 + t_size/2 + w_text, t_size)
+        self.draw.Reference(0, -height/2 - t_size/2 - w_text, t_size)
 
-        # set SMD attribute
-        self.module.SetAttributes(FP_SMD)
-
-        # starting pad
-        band_width = touch_width/bands
-
-        xpos = -0.5 * (steps - 1) * step_length
-        ypos = -0.5 * (bands - 1) * band_width
-
-        pos = VECTOR2I( int(xpos), int(ypos) )
-
-        for b in range(bands):
-            self.AddStrip(pos,steps,band_width,step_length,touch_clearance)
-            pos += VECTOR2I(0,(int)(band_width))
-
-TouchpadWizard().register()
-
-
+TrackpadWizard().register()
