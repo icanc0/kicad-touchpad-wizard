@@ -30,6 +30,7 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         self.AddParam("Options",  "add lines", self.uBool, True)
         self.AddParam("Options",  "add front wiring", self.uBool, True)
         self.AddParam("Options",  "add back wiring", self.uBool, True)
+        self.AddParam("Options",  "add soldermask", self.uBool, False)
 
         self.AddParam("Triangle debug", "debug", self.uBool, True)
         self.AddParam("Triangle debug", "angle", self.uInteger, 135, min_value=0, max_value=360)
@@ -43,7 +44,12 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         pad.SetSize(VECTOR2I(size[0], size[1]))
         pad.SetShape(PAD_SHAPE_TRAPEZOID) 
         pad.SetAttribute(PAD_ATTRIB_SMD)
-        pad.SetLayerSet(pad.ConnSMDMask())
+
+        if self.parameters['Options']["add soldermask"]:
+            pad.SetLayerSet(pad.ConnSMDMask())
+        else:
+            pad.SetLayerSet(pcbnew.LSET(pcbnew.F_Cu))
+
         pad.SetPosition(pos)
         pad.SetName(name)
         pad.SetOrientation(pcbnew.EDA_ANGLE(rotation * 10))  # wtf is proper units!!!
@@ -107,11 +113,11 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
                 # drill hole at the center
 
                 if self.parameters['Options']["drill hole"]:
-                    via_pos = VECTOR2I(int(x), int(y))
+                    via_pos = VECTOR2I(int(x), int(y + (pad_height/2 - clearance * 4)))
                     self.AddVia(module, via_pos, via_size, via_drill, "v_c" + str(i))
 
                 if self.parameters['Options']["add back wiring"]:
-                    self.DrawHorizontalLine(VECTOR2I(int(x), int(y + pad_height + clearance)), VECTOR2I(int(x), int(y)), pcbnew.B_Cu)
+                    self.DrawHorizontalLine( VECTOR2I(int(x), int(y + (pad_height/2 - clearance * 4))), VECTOR2I(int(x), int(y + pad_height + clearance - (pad_height/2 - clearance * 4))), pcbnew.B_Cu)
 
         # Right 
         for i in range(edge_segments_y):
@@ -134,7 +140,7 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
                 module.Add(pad)
 
                 if self.parameters['Options']["drill hole"]:
-                    via_pos = VECTOR2I(int(x), int(y))
+                    via_pos = VECTOR2I(int(x), int(y - (pad_height/2 - clearance * 4)))
                     self.AddVia(module, via_pos, via_size, via_drill, "v_c" + str(i))
 
         # Left 
