@@ -48,7 +48,9 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         if self.parameters['Options']["add soldermask"]:
             pad.SetLayerSet(pad.ConnSMDMask())
         else:
-            pad.SetLayerSet(pcbnew.LSET(pcbnew.F_Cu))
+            layerset = pcbnew.LSET()
+            layerset.AddLayer(pcbnew.F_Cu)
+            pad.SetLayerSet(layerset)
 
         pad.SetPosition(pos)
         pad.SetName(name)
