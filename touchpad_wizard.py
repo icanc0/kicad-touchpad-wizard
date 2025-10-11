@@ -22,7 +22,7 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         self.AddParam("Trackpad", "edge segments x", self.uInteger, 5, min_value=4)
         self.AddParam("Trackpad", "edge segments y", self.uInteger, 5, min_value=4)
         self.AddParam("Trackpad", "via diameter", self.uMM, 0.5, min_value=0.2)
-        self.AddParam("Trackpad", "via drill", self.uMM, 0.2, min_value=0.1)
+        self.AddParam("Trackpad", "via drill", self.uMM, 0.3, min_value=0.1)
         self.AddParam("Trackpad", "clearance", self.uMM, 0.2)
         self.AddParam("Trackpad", "line width", self.uMM, 0.127, min_value=0.1)
 
@@ -30,7 +30,7 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         self.AddParam("Options",  "add lines", self.uBool, True)
         self.AddParam("Options",  "add front wiring", self.uBool, True)
         self.AddParam("Options",  "add back wiring", self.uBool, True)
-        self.AddParam("Options",  "add soldermask", self.uBool, False)
+        self.AddParam("Options",  "add soldermask", self.uBool, True)
 
         self.AddParam("Triangle debug", "debug", self.uBool, True)
         self.AddParam("Triangle debug", "angle", self.uInteger, 135, min_value=0, max_value=360)
@@ -46,11 +46,11 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         pad.SetAttribute(PAD_ATTRIB_SMD)
 
         if self.parameters['Options']["add soldermask"]:
-            pad.SetLayerSet(pad.ConnSMDMask())
-        else:
             layerset = pcbnew.LSET()
             layerset.AddLayer(pcbnew.F_Cu)
             pad.SetLayerSet(layerset)
+        else:
+            pad.SetLayerSet(pad.ConnSMDMask())
 
         pad.SetPosition(pos)
         pad.SetName(name)
@@ -67,7 +67,11 @@ class TrackpadWizard(FootprintWizardBase.FootprintWizard):
         via.SetShape(PAD_SHAPE_CIRCLE)
         via.SetAttribute(PAD_ATTRIB_PTH)
         via.SetDrillSize(VECTOR2I(drill, drill))
-        via.SetLayerSet(via.PTHMask())
+        cuSet = pcbnew.LSET()
+        cuSet.AddLayer(pcbnew.B_Cu)
+        cuSet.AddLayer(pcbnew.F_Cu)
+        via.SetLayerSet(cuSet)
+        # via.SetLayerSet(via.PTHMask())
         via.SetPosition(pos)
         via.SetName(name)
         module.Add(via)
