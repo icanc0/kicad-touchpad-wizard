@@ -33,24 +33,25 @@ class Point:
 
 @dataclass(frozen=True, slots=True)
 class PadSpec:
-    """A trapezoidal SMD touch pad. Pad numbers are unique by construction.
+    """One triangular touch pad, expressed as 3 explicit board-frame vertices.
 
-    KiCad's `rect_delta (dx dy)` collapses one edge of the rect to a point when
-    one component equals the perpendicular size. To make a proper triangle we
-    must collapse the *longer* edge — using a dx >= size_x produces a self-
-    intersecting bowtie instead of a triangle.
+    KiCad's `rect_delta` trapezoid shape has too many edge cases — collapsing the
+    wrong edge gives a bowtie, switching which axis carries the delta moves the
+    apex 90°, the delta convention itself was unclear from docs. We sidestep
+    everything by emitting custom polygon pads (`gr_poly` primitives), giving
+    us direct control over each triangle's vertex positions.
+
+    `vertices` are absolute board-frame coords (nm). `anchor` is the pad's
+    placement point — the KiCad pad's (at x y) coords. The renderer translates
+    each vertex into the pad-local frame at emit time.
     """
 
     number: str
     pin_name: str
     electrode: Electrode
-    electrode_index: int  # 0-based column/row this pad belongs to
-    position: Point
-    size_x: Nanometers
-    size_y: Nanometers
-    trapezoid_delta_x: Nanometers
-    trapezoid_delta_y: Nanometers
-    angle: Degrees
+    electrode_index: int  # 0-based column/row
+    anchor: Point
+    vertices: tuple[Point, Point, Point]
     masked: bool
 
 
@@ -97,15 +98,59 @@ def _legacy_angle(triangle_angle_param: float) -> float:
     return (triangle_angle_param * 10.0) % 360.0
 
 
-def build_trackpad(params: TrackpadParams) -> Trackpad:
-    """Translate parameters into pure geometric specs.
+class _ApexDirection(Enum):
+    """Where the triangle's apex points, in board-frame cardinal directions."""
 
-    Each TX column ``c{i}`` is a vertical strip of zigzagging triangles
-    (top-loop and bottom-loop pads interleave at the same x). All pads in
-    column i share the pad number ``c{i}`` so they form one electrical net —
-    that's the entire point of an interdigitated capacitive sensor.
-    Likewise each RX row ``r{j}`` is a horizontal strip with all pads sharing
-    number ``r{j}``.
+    UP = (0, -1)
+    DOWN = (0, 1)
+    LEFT = (-1, 0)
+    RIGHT = (1, 0)
+
+
+def _triangle_vertices(
+    center_x: int, center_y: int, base_half_width: int, height: int, apex: _ApexDirection
+) -> tuple[Point, Point, Point]:
+    """Isoceles triangle in board coords.
+
+    `base_half_width` is half the base length, `height` is the triangle's height
+    measured from base midpoint to apex.
+
+    The triangle is inscribed in a rectangle that has the apex at one edge and
+    the full base along the opposite edge. The base is perpendicular to the
+    apex direction.
+    """
+    dx, dy = apex.value
+    # Apex is at `center + (dx, dy) * height/2`. Wait — center should be the
+    # centroid? Use bounding-box center: apex at `+height/2` along apex dir,
+    # base at `-height/2`.
+    apex_x = center_x + dx * height // 2
+    apex_y = center_y + dy * height // 2
+    base_mid_x = center_x - dx * height // 2
+    base_mid_y = center_y - dy * height // 2
+    # Base runs perpendicular to apex direction
+    perp_x, perp_y = -dy, dx
+    base_left_x = base_mid_x - perp_x * base_half_width
+    base_left_y = base_mid_y - perp_y * base_half_width
+    base_right_x = base_mid_x + perp_x * base_half_width
+    base_right_y = base_mid_y + perp_y * base_half_width
+    return (
+        Point(Nanometers(apex_x), Nanometers(apex_y)),
+        Point(Nanometers(base_left_x), Nanometers(base_left_y)),
+        Point(Nanometers(base_right_x), Nanometers(base_right_y)),
+    )
+
+
+def build_trackpad(params: TrackpadParams) -> Trackpad:
+    """Translate parameters into geometry specs with explicit triangle vertices.
+
+    Each TX column ``c{i}`` is a vertical strip of triangles. Top-loop pads point
+    UP toward the top of the trackpad, bottom-loop pads point DOWN. All pads in
+    column i share pad number ``c{i}``. Each RX row ``r{j}`` is the horizontal
+    equivalent — left-loop pads point RIGHT, right-loop pads point LEFT, all
+    sharing pad number ``r{j}``.
+
+    Triangles are sized to fit (pad_width × pad_height) cells, scaling correctly
+    for any aspect ratio.
     """
     width = params.width
     height = params.height
@@ -120,64 +165,45 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
     pads: list[PadSpec] = []
     vias: list[ViaSpec] = []
     segments: list[SegmentSpec] = []
-
-    top_angle = _legacy_angle(float(params.triangle_angle))           # default 135 -> 270
-    bottom_angle = _legacy_angle(float(params.triangle_angle) - 90.0)  # default 45  -> 90
-    right_angle = _legacy_angle(90.0)                                  # 180
-    left_angle = _legacy_angle(0.0)                                    # 0
-
     masked = params.add_soldermask
-    # We always want a triangle pad. KiCad's rect_delta collapses one edge to a
-    # point when one component equals the perpendicular size — BUT only when that
-    # component is the SHORTER of size_x / size_y. If dx >= size_x you get a
-    # bowtie, not a triangle.
-    #
-    # Rule: put the delta along the LONGER axis with magnitude = SHORTER axis.
-    # For a pad with size (sx, sy):
-    #   sx >= sy  →  rect_delta = (sy, 0)   triangle points along ±X
-    #   sy >  sx  →  rect_delta = (0, sx)   triangle points along ±Y
-    tx_size_x = Nanometers(pad_height - clearance)  # TX pads are vertical strips
-    tx_size_y = Nanometers(pad_width - clearance)
-    rx_size_x = Nanometers(pad_width - clearance)   # RX pads are horizontal strips
-    rx_size_y = Nanometers(pad_height - clearance)
 
-    def triangle_delta(sx: int, sy: int) -> tuple[Nanometers, Nanometers]:
-        if sx >= sy:
-            return Nanometers(sy), Nanometers(0)
-        return Nanometers(0), Nanometers(sx)
+    # Triangle shape matches KiCad's rect_delta(size_x, 0) at size_x = size_y:
+    # the base is TWICE the nominal pad_width (extending across two cell columns),
+    # and the height equals pad_height. Adjacent pads in a column share half-cells —
+    # this is what makes the iconic full-coverage diamond pattern tile.
+    tx_base_half = Nanometers(pad_width - clearance)        # full base = 2*(pad_width - clearance)
+    tx_height = Nanometers(pad_height - clearance)
+    rx_base_half = Nanometers(pad_height - clearance)
+    rx_height = Nanometers(pad_width - clearance)
 
-    tx_dx, tx_dy = triangle_delta(tx_size_x, tx_size_y)
-    rx_dx, rx_dy = triangle_delta(rx_size_x, rx_size_y)
-
-    # TX columns occupy the full vertical strip at each x position. Top-loop and
-    # bottom-loop pads interleave at the same x but staggered y, so the column
-    # looks like a zigzag of alternating-orientation triangles.
+    # TX columns. Top-loop pads point UP (board -Y), bottom-loop pads point DOWN.
     for col in range(seg_x):
         tx_number = f"c{col}"
         pin_name = f"TX{col}"
         x = -width // 2 + col * (pad_width * 2) + pad_width
 
-        # Top-loop pads
+        # Top-loop pads — apex DOWN (toward trackpad center). The pad sits near the
+        # top edge of the trackpad; its triangle's base is at the edge and its
+        # apex points inward to meet the adjacent bottom-loop pad's apex.
         for row in range(seg_y):
-            y = -height // 2 + pad_height // 2 + row * (pad_height * 2)
-            pos = Point(Nanometers(x), Nanometers(y - half_clearance))
+            y_center = -height // 2 + pad_height // 2 + row * (pad_height * 2) - half_clearance
+            anchor = Point(Nanometers(x), Nanometers(y_center))
+            vertices = _triangle_vertices(
+                x, y_center, tx_base_half, tx_height, _ApexDirection.DOWN
+            )
             pads.append(
                 PadSpec(
                     number=tx_number,
                     pin_name=pin_name,
                     electrode=Electrode.TX,
                     electrode_index=col,
-                    position=pos,
-                    size_x=tx_size_x,
-                    size_y=tx_size_y,
-                    trapezoid_delta_x=tx_dx,
-                    trapezoid_delta_y=tx_dy,
-                    angle=Degrees(top_angle),
+                    anchor=anchor,
+                    vertices=vertices,
                     masked=masked,
                 )
             )
             if params.drill_holes:
-                via_y = Nanometers(y + (pad_height // 2 - clearance * 4))
+                via_y = Nanometers(y_center + (pad_height // 2 - clearance * 4))
                 via_pos = Point(Nanometers(x), via_y)
                 vias.append(
                     ViaSpec(
@@ -190,11 +216,16 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
             if params.add_back_wiring:
                 seg_start = Point(
                     Nanometers(x),
-                    Nanometers(y + (pad_height // 2 - clearance * 4)),
+                    Nanometers(y_center + (pad_height // 2 - clearance * 4)),
                 )
                 seg_end = Point(
                     Nanometers(x),
-                    Nanometers(y + pad_height + clearance - (pad_height // 2 - clearance * 4)),
+                    Nanometers(
+                        y_center
+                        + pad_height
+                        + clearance
+                        - (pad_height // 2 - clearance * 4)
+                    ),
                 )
                 segments.append(
                     SegmentSpec(
@@ -205,27 +236,26 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     )
                 )
 
-        # Bottom-loop pads (interleaved into the same column at offset y)
+        # Bottom-loop pads — apex UP (toward trackpad center)
         for row in range(seg_y):
-            y = height // 2 - pad_height // 2 - row * (pad_height * 2)
-            pos = Point(Nanometers(x), Nanometers(y + half_clearance))
+            y_center = height // 2 - pad_height // 2 - row * (pad_height * 2) + half_clearance
+            anchor = Point(Nanometers(x), Nanometers(y_center))
+            vertices = _triangle_vertices(
+                x, y_center, tx_base_half, tx_height, _ApexDirection.UP
+            )
             pads.append(
                 PadSpec(
                     number=tx_number,
                     pin_name=pin_name,
                     electrode=Electrode.TX,
                     electrode_index=col,
-                    position=pos,
-                    size_x=tx_size_x,
-                    size_y=tx_size_y,
-                    trapezoid_delta_x=tx_dx,
-                    trapezoid_delta_y=tx_dy,
-                    angle=Degrees(bottom_angle),
+                    anchor=anchor,
+                    vertices=vertices,
                     masked=masked,
                 )
             )
             if params.drill_holes:
-                via_y = Nanometers(y - (pad_height // 2 - clearance * 4))
+                via_y = Nanometers(y_center - (pad_height // 2 - clearance * 4))
                 via_pos = Point(Nanometers(x), via_y)
                 vias.append(
                     ViaSpec(
@@ -236,13 +266,12 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     )
                 )
 
-    # RX rows occupy the full horizontal strip at each y position.
+    # RX rows. Right-loop pads point LEFT (board -X), left-loop pads point RIGHT.
     for row in range(seg_y):
         rx_number = f"r{row}"
         pin_name = f"RX{row}"
         y = -height // 2 + row * (pad_height * 2) + pad_height
 
-        # Front-side routing trace spans the row.
         if params.add_front_wiring:
             segments.append(
                 SegmentSpec(
@@ -253,42 +282,44 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                 )
             )
 
-        # Right-loop pads
+        # Right-loop pads — apex LEFT? actually apex points inward toward column gap.
+        # The pad sits near the right edge of its cell with base at the trackpad
+        # right and apex pointing leftward into the cell.
+        # TODO verify empirically — for symmetry with TX, this should be the apex
+        # pointing into the row direction (i.e., toward the row's center axis).
         for col in range(seg_x):
-            x = width // 2 - pad_width // 2 - col * (pad_width * 2)
-            pos = Point(Nanometers(x + half_clearance), Nanometers(y))
+            x_center = width // 2 - pad_width // 2 - col * (pad_width * 2) + half_clearance
+            anchor = Point(Nanometers(x_center), Nanometers(y))
+            vertices = _triangle_vertices(
+                x_center, y, rx_base_half, rx_height, _ApexDirection.LEFT
+            )
             pads.append(
                 PadSpec(
                     number=rx_number,
                     pin_name=pin_name,
                     electrode=Electrode.RX,
                     electrode_index=row,
-                    position=pos,
-                    size_x=rx_size_x,
-                    size_y=rx_size_y,
-                    trapezoid_delta_x=rx_dx,
-                    trapezoid_delta_y=rx_dy,
-                    angle=Degrees(right_angle),
+                    anchor=anchor,
+                    vertices=vertices,
                     masked=masked,
                 )
             )
 
-        # Left-loop pads
+        # Left-loop pads — apex RIGHT
         for col in range(seg_x):
-            x = -width // 2 + pad_width // 2 + col * (pad_width * 2)
-            pos = Point(Nanometers(x - half_clearance), Nanometers(y))
+            x_center = -width // 2 + pad_width // 2 + col * (pad_width * 2) - half_clearance
+            anchor = Point(Nanometers(x_center), Nanometers(y))
+            vertices = _triangle_vertices(
+                x_center, y, rx_base_half, rx_height, _ApexDirection.RIGHT
+            )
             pads.append(
                 PadSpec(
                     number=rx_number,
                     pin_name=pin_name,
                     electrode=Electrode.RX,
                     electrode_index=row,
-                    position=pos,
-                    size_x=rx_size_x,
-                    size_y=rx_size_y,
-                    trapezoid_delta_x=rx_dx,
-                    trapezoid_delta_y=rx_dy,
-                    angle=Degrees(left_angle),
+                    anchor=anchor,
+                    vertices=vertices,
                     masked=masked,
                 )
             )

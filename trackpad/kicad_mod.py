@@ -1,15 +1,13 @@
 """Emit a .kicad_mod (footprint) s-expression text file from geometry specs.
 
-This is a parallel output path to trackpad.footprint (which emits a kipy proto for the
-IPC pipeline). The text-file path keeps users unblocked when the in-KiCad wizard is
-inconvenient — and it's what we feed kicad-cli for headless golden-image testing.
-
-Coordinates in .kicad_mod are millimeters with two decimals; we convert from internal nm.
+Triangles are emitted as custom polygon pads (`smd custom` with `gr_poly`
+primitives) so we have direct control over each vertex. This sidesteps every
+KiCad rect_delta quirk that broke non-square cells.
 """
 
 from __future__ import annotations
 
-from trackpad.geometry import Layer, PadSpec, SegmentSpec, Trackpad, ViaSpec
+from trackpad.geometry import Layer, PadSpec, Point, SegmentSpec, Trackpad, ViaSpec
 from trackpad.params import TrackpadParams
 from trackpad.units import Nanometers
 
@@ -26,7 +24,6 @@ def _esc(s: str) -> str:
 
 
 def render_footprint(trackpad: Trackpad, params: TrackpadParams) -> str:
-    """Return the full content of a .kicad_mod file."""
     width_mm = params.width / 1_000_000
     height_mm = params.height / 1_000_000
     name = f"Trackpad-{width_mm:g}x{height_mm:g}mm"
@@ -48,7 +45,7 @@ def render_footprint(trackpad: Trackpad, params: TrackpadParams) -> str:
     ]
 
     for pad in trackpad.pads:
-        parts.append(_render_pad(pad))
+        parts.append(_render_triangle_pad(pad))
     for via in trackpad.vias:
         parts.append(_render_via(via))
     for seg in trackpad.segments:
@@ -58,16 +55,32 @@ def render_footprint(trackpad: Trackpad, params: TrackpadParams) -> str:
     return "\n".join(parts) + "\n"
 
 
-def _render_pad(spec: PadSpec) -> str:
+def _render_triangle_pad(spec: PadSpec) -> str:
+    """Emit a triangular pad as `smd custom` with a `gr_poly` primitive.
+
+    KiCad needs the pad's anchor point in `(at x y)` (the pad's reference), and
+    the primitive's vertices are relative to that anchor.
+    """
     layers = '"F.Cu" "F.Mask"' if not spec.masked else '"F.Cu"'
-    dx_mm = spec.trapezoid_delta_x / 1_000_000
-    dy_mm = spec.trapezoid_delta_y / 1_000_000
+    ax = spec.anchor.x
+    ay = spec.anchor.y
+
+    def rel(p: Point) -> str:
+        return f"        (xy {(p.x - ax) / 1_000_000:.4f} {(p.y - ay) / 1_000_000:.4f})"
+
+    pts_block = "\n".join(rel(v) for v in spec.vertices)
+
     return (
-        f'  (pad "{_esc(spec.number)}" smd trapezoid '
-        f"(at {_mm(spec.position.x)} {_mm(spec.position.y)} {float(spec.angle):g})\n"
-        f"    (size {_mm(spec.size_x)} {_mm(spec.size_y)})\n"
-        f"    (rect_delta {dx_mm:.4f} {dy_mm:.4f})\n"
-        f"    (layers {layers}))"
+        f'  (pad "{_esc(spec.number)}" smd custom '
+        f"(at {_mm(ax)} {_mm(ay)})\n"
+        f"    (size 0.25 0.25)\n"
+        f"    (layers {layers})\n"
+        f"    (options (clearance outline) (anchor circle))\n"
+        f"    (primitives\n"
+        f"      (gr_poly\n"
+        f"        (pts\n"
+        f"{pts_block})\n"
+        f"        (width 0) (fill yes))))"
     )
 
 

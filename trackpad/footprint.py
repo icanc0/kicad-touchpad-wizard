@@ -1,4 +1,15 @@
-"""Turn typed geometry specs into a kipy Footprint proto."""
+"""Turn typed geometry specs into a kipy Footprint proto.
+
+WARNING: this path is only exercised when KiCad runs the wizard plugin via the
+IPC API. KiCad 10.0.1 ships the API server disabled by default and has not been
+verified to wire up `footprint_wizard`-scoped IPC plugins. The standalone CLI
+(`touchpad-wizard emit ...`) uses `trackpad.kicad_mod` instead, which is the
+production path right now.
+
+Triangles are emitted as PSS_CUSTOM padstacks with a polygon primitive. kipy
+0.7.1's BoardPolygon API has some read-only setters that make assembling the
+custom-shape list awkward; we mutate the underlying proto directly to sidestep.
+"""
 
 from __future__ import annotations
 
@@ -6,7 +17,7 @@ from typing import TYPE_CHECKING
 
 from kipy.board_types import BoardSegment, Footprint, Pad
 from kipy.common_types import LibraryIdentifier
-from kipy.geometry import Angle, Vector2
+from kipy.geometry import Vector2
 from kipy.proto.board.board_types_pb2 import (
     BoardLayer,
     PadStackShape,
@@ -14,6 +25,7 @@ from kipy.proto.board.board_types_pb2 import (
     PadType,
     SolderMaskMode,
 )
+from kipy.proto.common.types import base_types_pb2 as common_types
 
 from trackpad.geometry import Layer, PadSpec, SegmentSpec, Trackpad, ViaSpec
 
@@ -30,18 +42,33 @@ def _make_smd_pad(spec: PadSpec) -> Pad:
     pad = Pad()
     pad.number = spec.number
     pad.pad_type = PadType.PT_SMD
-    pad.position = Vector2.from_xy(int(spec.position.x), int(spec.position.y))
+    pad.position = Vector2.from_xy(int(spec.anchor.x), int(spec.anchor.y))
 
     ps = pad.padstack
     ps.type = PadStackType.PST_NORMAL
     ps.layers = [BoardLayer.BL_F_Cu]
-    ps.angle = Angle.from_degrees(float(spec.angle))
 
     front = ps.copper_layer(BoardLayer.BL_F_Cu)
     assert front is not None
-    front.shape = PadStackShape.PSS_TRAPEZOID
-    front.size = Vector2.from_xy(int(spec.size_x), int(spec.size_y))
-    front.trapezoid_delta = Vector2.from_xy(int(spec.trapezoid_delta_x), int(spec.trapezoid_delta_y))
+    front.shape = PadStackShape.PSS_CUSTOM
+    front.custom_anchor_shape = PadStackShape.PSS_CIRCLE
+    # Anchor primitive — tiny circle, hidden under the polygon
+    front.size = Vector2.from_xy(250_000, 250_000)
+
+    # Build the custom polygon shape by mutating the underlying proto directly.
+    # The kipy 0.7.1 wrapper exposes `custom_shapes` as a read-only list; we
+    # append directly to the proto's repeated field instead. protobuf RepeatedCompositeContainer
+    # has `del[:]` for clearing.
+    del front._proto.custom_shapes[:]  # type: ignore[attr-defined]
+    custom_shape_proto = front._proto.custom_shapes.add()  # type: ignore[attr-defined]
+    poly_with_holes = custom_shape_proto.shape.polygon.polygons.add()
+    for vertex in spec.vertices:
+        node = poly_with_holes.outline.nodes.add()
+        node.point.x_nm = int(vertex.x - spec.anchor.x)
+        node.point.y_nm = int(vertex.y - spec.anchor.y)
+    poly_with_holes.outline.closed = True
+    # Layer for the BoardGraphicShape wrapping this polygon
+    custom_shape_proto.layer = BoardLayer.BL_F_Cu
 
     ps.front_outer_layers.solder_mask_mode = (
         SolderMaskMode.SMM_FROM_DESIGN_RULES if spec.masked else SolderMaskMode.SMM_UNMASKED
@@ -80,9 +107,9 @@ def _make_segment(spec: SegmentSpec) -> BoardSegment:
 
 def to_footprint(trackpad: Trackpad, params: TrackpadParams) -> Footprint:
     """Build the Footprint proto from typed geometry specs."""
+    _ = common_types  # imported for namespace effect; protos resolve lazily
     fp = Footprint()
 
-    # Stable library identifier: "Trackpad:Trackpad-<w>x<h>mm"
     lib_id = LibraryIdentifier()
     lib_id.library = "Trackpad"
     lib_id.name = f"Trackpad-{params.width / 1_000_000:g}x{params.height / 1_000_000:g}mm"

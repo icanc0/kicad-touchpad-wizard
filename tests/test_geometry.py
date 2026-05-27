@@ -107,16 +107,18 @@ class TestProperties:
             assert pad.number == f"{expected_prefix}{pad.electrode_index}"
 
     @given(trackpad_params())
-    def test_pads_stay_within_bounding_box(self, params: TrackpadParams) -> None:
+    def test_pad_anchors_inside_trackpad(self, params: TrackpadParams) -> None:
         if params.validate() is not None:
             pytest.skip("validation rejected")
         trackpad = build_trackpad(params)
-        # 10% margin allowed for the trapezoid extending past the nominal grid
-        half_w = params.width // 2 + params.width // 10
-        half_h = params.height // 2 + params.height // 10
+        # Anchor points must be inside the trackpad (the actual triangle vertices
+        # may extend past anchors — pads with rect_delta-equivalent shapes are
+        # naturally wider than their anchor position).
+        half_w = params.width // 2
+        half_h = params.height // 2
         for pad in trackpad.pads:
-            assert -half_w <= pad.position.x <= half_w
-            assert -half_h <= pad.position.y <= half_h
+            assert -half_w <= pad.anchor.x <= half_w
+            assert -half_h <= pad.anchor.y <= half_h
 
     @given(trackpad_params())
     def test_vias_only_at_tx_columns(self, params: TrackpadParams) -> None:
