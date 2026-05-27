@@ -120,7 +120,17 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
     left_angle = _legacy_angle(0.0)                                    # 0
 
     masked = params.add_soldermask
-    trap_delta = Nanometers(min(pad_width, pad_height) - clearance)
+    # KiCad's trapezoid uses size_x as the nominal width and `rect_delta dx 0`
+    # to widen the top edge by +dx and narrow the bottom by -dx. Setting
+    # dx == size_x collapses the bottom to a point, giving the classic triangle
+    # pad. The original SWIG code did this with `SetDelta(VECTOR2I(size[1], 0))`;
+    # we make the same triangles by storing delta == the pad's own size_x.
+    tx_size_x = Nanometers(pad_height - clearance)  # TX pads are vertical strips
+    tx_size_y = Nanometers(pad_width - clearance)
+    rx_size_x = Nanometers(pad_width - clearance)   # RX pads are horizontal strips
+    rx_size_y = Nanometers(pad_height - clearance)
+    tx_delta = tx_size_x
+    rx_delta = rx_size_x
 
     # TX columns occupy the full vertical strip at each x position. Top-loop and
     # bottom-loop pads interleave at the same x but staggered y, so the column
@@ -141,9 +151,9 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     electrode=Electrode.TX,
                     electrode_index=col,
                     position=pos,
-                    size_x=Nanometers(pad_height - clearance),
-                    size_y=Nanometers(pad_width - clearance),
-                    trapezoid_delta=trap_delta,
+                    size_x=tx_size_x,
+                    size_y=tx_size_y,
+                    trapezoid_delta=tx_delta,
                     angle=Degrees(top_angle),
                     masked=masked,
                 )
@@ -188,9 +198,9 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     electrode=Electrode.TX,
                     electrode_index=col,
                     position=pos,
-                    size_x=Nanometers(pad_height - clearance),
-                    size_y=Nanometers(pad_width - clearance),
-                    trapezoid_delta=trap_delta,
+                    size_x=tx_size_x,
+                    size_y=tx_size_y,
+                    trapezoid_delta=tx_delta,
                     angle=Degrees(bottom_angle),
                     masked=masked,
                 )
@@ -235,9 +245,9 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     electrode=Electrode.RX,
                     electrode_index=row,
                     position=pos,
-                    size_x=Nanometers(pad_width - clearance),
-                    size_y=Nanometers(pad_height - clearance),
-                    trapezoid_delta=trap_delta,
+                    size_x=rx_size_x,
+                    size_y=rx_size_y,
+                    trapezoid_delta=rx_delta,
                     angle=Degrees(right_angle),
                     masked=masked,
                 )
@@ -254,9 +264,9 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     electrode=Electrode.RX,
                     electrode_index=row,
                     position=pos,
-                    size_x=Nanometers(pad_width - clearance),
-                    size_y=Nanometers(pad_height - clearance),
-                    trapezoid_delta=trap_delta,
+                    size_x=rx_size_x,
+                    size_y=rx_size_y,
+                    trapezoid_delta=rx_delta,
                     angle=Degrees(left_angle),
                     masked=masked,
                 )
