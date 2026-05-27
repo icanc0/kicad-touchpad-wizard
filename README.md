@@ -41,15 +41,30 @@ schematic-to-PCB binding works.
 
 Run `python touchpad_wizard.py emit --help` for the full parameter list.
 
-### Option B — In-KiCad wizard (live parameter preview)
+### Option B — In-KiCad wizard (KiCad 10.1+ / 11)
+
+> [!IMPORTANT]
+> **This does not work on KiCad 10.0.x.** Verified against the KiCad source: the
+> `FOOTPRINT_WIZARD` plugin-action scope was added on master after the 10.0.1
+> tag (commit on `master`, missing from `10.0.1` tag at
+> `include/api/plugin_action_scope.h`). KiCad 10.0.1 detects our plugin and
+> even provisions the Python venv, but maps the `footprint_wizard` scope to
+> `INVALID` and never surfaces the wizard in the UI. Use Option A on K10.0.x.
 
 1. Find your KiCad plugin directory:
-   - Linux: `~/.local/share/kicad/9.0/plugins/`
-   - macOS: `~/Library/Application Support/kicad/9.0/plugins/`
-   - Windows: `%APPDATA%\kicad\9.0\plugins\`
-2. Clone this repo into a `touchpad-wizard/` subdirectory there.
-3. In KiCad: Preferences → Plugins → enable the API server.
-4. Open the footprint editor → File → Create from Wizard → "Trackpad".
+   - Linux: `~/.local/share/kicad/<version>/plugins/`
+   - macOS: `~/Library/Application Support/kicad/<version>/plugins/`
+   - Windows: `%APPDATA%\kicad\<version>\plugins\`
+2. Symlink (or clone) this repo into a `touchpad-wizard/` subdirectory there.
+3. In KiCad → Preferences → KiCad → Plugins → check **"Enable KiCad API"**.
+   Close and re-open KiCad (it overwrites `kicad_common.json` on shutdown,
+   so flipping the flag from a terminal while KiCad is running will be reverted).
+4. Open the footprint editor → File → New Footprint Using Footprint Wizard →
+   look for "Trackpad" in the list.
+
+KiCad reads `requirements.txt` (not `pyproject.toml`) to provision the plugin's
+Python venv, so the file `requirements.txt` at the repo root is what's installed
+into the venv at `~/.cache/kicad/<version>/python-environments/<plugin-id>/`.
 
 Adjust parameters with live preview. On generate, the footprint lands in the
 editor and the matching symbol is appended to

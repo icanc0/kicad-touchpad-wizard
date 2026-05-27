@@ -1,0 +1,4 @@
+# KiCad's API plugin manager reads this file to provision the plugin's venv at
+# ~/.cache/kicad/<version>/python-environments/<plugin-id>/. It does NOT read
+# pyproject.toml. See api_plugin_manager.cpp line 767 in the KiCad source.
+kicad-python >= 0.7
