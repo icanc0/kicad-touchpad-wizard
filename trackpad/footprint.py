@@ -41,7 +41,7 @@ def _make_smd_pad(spec: PadSpec) -> Pad:
     assert front is not None
     front.shape = PadStackShape.PSS_TRAPEZOID
     front.size = Vector2.from_xy(int(spec.size_x), int(spec.size_y))
-    front.trapezoid_delta = Vector2.from_xy(int(spec.trapezoid_delta), 0)
+    front.trapezoid_delta = Vector2.from_xy(int(spec.trapezoid_delta_x), int(spec.trapezoid_delta_y))
 
     ps.front_outer_layers.solder_mask_mode = (
         SolderMaskMode.SMM_FROM_DESIGN_RULES if spec.masked else SolderMaskMode.SMM_UNMASKED

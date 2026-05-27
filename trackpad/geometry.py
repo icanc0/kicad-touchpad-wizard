@@ -33,16 +33,23 @@ class Point:
 
 @dataclass(frozen=True, slots=True)
 class PadSpec:
-    """A trapezoidal SMD touch pad. Pad numbers are unique by construction."""
+    """A trapezoidal SMD touch pad. Pad numbers are unique by construction.
+
+    KiCad's `rect_delta (dx dy)` collapses one edge of the rect to a point when
+    one component equals the perpendicular size. To make a proper triangle we
+    must collapse the *longer* edge — using a dx >= size_x produces a self-
+    intersecting bowtie instead of a triangle.
+    """
 
     number: str
     pin_name: str
     electrode: Electrode
-    electrode_index: int  # 1-based column/row this pad belongs to
+    electrode_index: int  # 0-based column/row this pad belongs to
     position: Point
     size_x: Nanometers
     size_y: Nanometers
-    trapezoid_delta: Nanometers
+    trapezoid_delta_x: Nanometers
+    trapezoid_delta_y: Nanometers
     angle: Degrees
     masked: bool
 
@@ -120,17 +127,27 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
     left_angle = _legacy_angle(0.0)                                    # 0
 
     masked = params.add_soldermask
-    # KiCad's trapezoid uses size_x as the nominal width and `rect_delta dx 0`
-    # to widen the top edge by +dx and narrow the bottom by -dx. Setting
-    # dx == size_x collapses the bottom to a point, giving the classic triangle
-    # pad. The original SWIG code did this with `SetDelta(VECTOR2I(size[1], 0))`;
-    # we make the same triangles by storing delta == the pad's own size_x.
+    # We always want a triangle pad. KiCad's rect_delta collapses one edge to a
+    # point when one component equals the perpendicular size — BUT only when that
+    # component is the SHORTER of size_x / size_y. If dx >= size_x you get a
+    # bowtie, not a triangle.
+    #
+    # Rule: put the delta along the LONGER axis with magnitude = SHORTER axis.
+    # For a pad with size (sx, sy):
+    #   sx >= sy  →  rect_delta = (sy, 0)   triangle points along ±X
+    #   sy >  sx  →  rect_delta = (0, sx)   triangle points along ±Y
     tx_size_x = Nanometers(pad_height - clearance)  # TX pads are vertical strips
     tx_size_y = Nanometers(pad_width - clearance)
     rx_size_x = Nanometers(pad_width - clearance)   # RX pads are horizontal strips
     rx_size_y = Nanometers(pad_height - clearance)
-    tx_delta = tx_size_x
-    rx_delta = rx_size_x
+
+    def triangle_delta(sx: int, sy: int) -> tuple[Nanometers, Nanometers]:
+        if sx >= sy:
+            return Nanometers(sy), Nanometers(0)
+        return Nanometers(0), Nanometers(sx)
+
+    tx_dx, tx_dy = triangle_delta(tx_size_x, tx_size_y)
+    rx_dx, rx_dy = triangle_delta(rx_size_x, rx_size_y)
 
     # TX columns occupy the full vertical strip at each x position. Top-loop and
     # bottom-loop pads interleave at the same x but staggered y, so the column
@@ -153,7 +170,8 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     position=pos,
                     size_x=tx_size_x,
                     size_y=tx_size_y,
-                    trapezoid_delta=tx_delta,
+                    trapezoid_delta_x=tx_dx,
+                    trapezoid_delta_y=tx_dy,
                     angle=Degrees(top_angle),
                     masked=masked,
                 )
@@ -200,7 +218,8 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     position=pos,
                     size_x=tx_size_x,
                     size_y=tx_size_y,
-                    trapezoid_delta=tx_delta,
+                    trapezoid_delta_x=tx_dx,
+                    trapezoid_delta_y=tx_dy,
                     angle=Degrees(bottom_angle),
                     masked=masked,
                 )
@@ -247,7 +266,8 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     position=pos,
                     size_x=rx_size_x,
                     size_y=rx_size_y,
-                    trapezoid_delta=rx_delta,
+                    trapezoid_delta_x=rx_dx,
+                    trapezoid_delta_y=rx_dy,
                     angle=Degrees(right_angle),
                     masked=masked,
                 )
@@ -266,7 +286,8 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     position=pos,
                     size_x=rx_size_x,
                     size_y=rx_size_y,
-                    trapezoid_delta=rx_delta,
+                    trapezoid_delta_x=rx_dx,
+                    trapezoid_delta_y=rx_dy,
                     angle=Degrees(left_angle),
                     masked=masked,
                 )

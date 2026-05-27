@@ -60,12 +60,13 @@ def render_footprint(trackpad: Trackpad, params: TrackpadParams) -> str:
 
 def _render_pad(spec: PadSpec) -> str:
     layers = '"F.Cu" "F.Mask"' if not spec.masked else '"F.Cu"'
-    delta_mm = spec.trapezoid_delta / 1_000_000
+    dx_mm = spec.trapezoid_delta_x / 1_000_000
+    dy_mm = spec.trapezoid_delta_y / 1_000_000
     return (
         f'  (pad "{_esc(spec.number)}" smd trapezoid '
         f"(at {_mm(spec.position.x)} {_mm(spec.position.y)} {float(spec.angle):g})\n"
         f"    (size {_mm(spec.size_x)} {_mm(spec.size_y)})\n"
-        f"    (rect_delta {delta_mm:.4f} 0)\n"
+        f"    (rect_delta {dx_mm:.4f} {dy_mm:.4f})\n"
         f"    (layers {layers}))"
     )
 
