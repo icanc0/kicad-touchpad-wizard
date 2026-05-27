@@ -125,10 +125,16 @@ def build_circular_trackpad(params: CircularParams) -> CircularTrackpad:
 
     # Margin per cell so adjacent cells don't kiss; clearance / 2 on every edge.
     radial_pad = float(params.clearance) / 2
+    # Don't let any single angular gap exceed a third of a sector; at near-zero
+    # inner radii the naive clearance-over-radius formula explodes and produces
+    # degenerate (near-zero-width) cells. This cap was the size-scaling bug.
+    max_ang_pad = sector_width_rad / 3
 
     def angular_pad_at(r: float) -> float:
-        """Convert linear clearance to angular clearance at radius r."""
-        return float(params.clearance) / 2 / max(r, 1.0)
+        """Linear clearance expressed in radians at radius r, capped."""
+        if r <= 0:
+            return max_ang_pad
+        return min(float(params.clearance) / 2 / r, max_ang_pad)
 
     for ring_idx in range(rings):
         r_in = r_inner_total + ring_idx * ring_width + radial_pad
@@ -137,7 +143,9 @@ def build_circular_trackpad(params: CircularParams) -> CircularTrackpad:
             theta_start = sec_idx * sector_width_rad
             theta_end = (sec_idx + 1) * sector_width_rad
             r_mid = (r_in + r_out) / 2
-            ang_pad = angular_pad_at(r_mid)
+            # Use r_in (the tightest spot in the cell) — using r_mid under-spec'd
+            # clearance at the inner edge and overshot it at the outer edge.
+            ang_pad = angular_pad_at(r_in)
 
             # Checkerboard split: cells where (sector + ring) is even -> TX,
             # else RX. This is the polar analog of the rectangular zigzag.
