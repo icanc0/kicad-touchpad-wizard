@@ -1,0 +1,4473 @@
+(footprint "Trackpad-10x100mm"
+  (version 20240108)
+  (generator "kicad-touchpad-wizard")
+  (layer "F.Cu")
+  (descr "Capacitive trackpad 10x100 mm, 4 TX cols, 20 RX rows")
+  (attr smd)
+  (fp_text reference "REF**" (at 0 -51.5000)
+    (layer "F.SilkS")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (fp_text value "Trackpad-10x100mm" (at 0 51.5000)
+    (layer "F.Fab")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (pad "c0" smd custom (at -3.7500 -48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c0" smd custom (at -3.7500 -46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c1" smd custom (at -1.2500 -46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c2" smd custom (at 1.2500 -46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 1.1500)
+        (xy 1.0500 -1.1500)
+        (xy -1.0500 -1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 48.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 43.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 38.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 33.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 28.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 23.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 18.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 13.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 8.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 3.8500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -1.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -6.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -11.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -16.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -21.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -26.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -31.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -36.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -41.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "c3" smd custom (at 3.7500 -46.1500)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.0000 -1.1500)
+        (xy -1.0500 1.1500)
+        (xy 1.0500 1.1500))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at 4.4750 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at 1.9750 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at -0.5250 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at -3.0250 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at -4.4750 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at -1.9750 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at 0.5250 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r0" smd custom (at 3.0250 -47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at 4.4750 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at 1.9750 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at -0.5250 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at -3.0250 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at -4.4750 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at -1.9750 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at 0.5250 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r1" smd custom (at 3.0250 -42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at 4.4750 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at 1.9750 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at -0.5250 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at -3.0250 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at -4.4750 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at -1.9750 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at 0.5250 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r2" smd custom (at 3.0250 -37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at 4.4750 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at 1.9750 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at -0.5250 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at -3.0250 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at -4.4750 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at -1.9750 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at 0.5250 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r3" smd custom (at 3.0250 -32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at 4.4750 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at 1.9750 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at -0.5250 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at -3.0250 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at -4.4750 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at -1.9750 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at 0.5250 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r4" smd custom (at 3.0250 -27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at 4.4750 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at 1.9750 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at -0.5250 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at -3.0250 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at -4.4750 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at -1.9750 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at 0.5250 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r5" smd custom (at 3.0250 -22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at 4.4750 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at 1.9750 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at -0.5250 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at -3.0250 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at -4.4750 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at -1.9750 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at 0.5250 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r6" smd custom (at 3.0250 -17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at 4.4750 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at 1.9750 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at -0.5250 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at -3.0250 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at -4.4750 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at -1.9750 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at 0.5250 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r7" smd custom (at 3.0250 -12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at 4.4750 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at 1.9750 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at -0.5250 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at -3.0250 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at -4.4750 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at -1.9750 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at 0.5250 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r8" smd custom (at 3.0250 -7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at 4.4750 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at 1.9750 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at -0.5250 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at -3.0250 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at -4.4750 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at -1.9750 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at 0.5250 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r9" smd custom (at 3.0250 -2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at 4.4750 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at 1.9750 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at -0.5250 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at -3.0250 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at -4.4750 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at -1.9750 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at 0.5250 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r10" smd custom (at 3.0250 2.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at 4.4750 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at 1.9750 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at -0.5250 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at -3.0250 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at -4.4750 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at -1.9750 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at 0.5250 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r11" smd custom (at 3.0250 7.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at 4.4750 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at 1.9750 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at -0.5250 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at -3.0250 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at -4.4750 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at -1.9750 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at 0.5250 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r12" smd custom (at 3.0250 12.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at 4.4750 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at 1.9750 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at -0.5250 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at -3.0250 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at -4.4750 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at -1.9750 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at 0.5250 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r13" smd custom (at 3.0250 17.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at 4.4750 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at 1.9750 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at -0.5250 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at -3.0250 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at -4.4750 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at -1.9750 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at 0.5250 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r14" smd custom (at 3.0250 22.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at 4.4750 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at 1.9750 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at -0.5250 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at -3.0250 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at -4.4750 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at -1.9750 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at 0.5250 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r15" smd custom (at 3.0250 27.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at 4.4750 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at 1.9750 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at -0.5250 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at -3.0250 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at -4.4750 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at -1.9750 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at 0.5250 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r16" smd custom (at 3.0250 32.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at 4.4750 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at 1.9750 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at -0.5250 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at -3.0250 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at -4.4750 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at -1.9750 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at 0.5250 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r17" smd custom (at 3.0250 37.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at 4.4750 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at 1.9750 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at -0.5250 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at -3.0250 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at -4.4750 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at -1.9750 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at 0.5250 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r18" smd custom (at 3.0250 42.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at 4.4750 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at 1.9750 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at -0.5250 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at -3.0250 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy -0.5250 0.0000)
+        (xy 0.5250 2.3000)
+        (xy 0.5250 -2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at -4.4750 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at -1.9750 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at 0.5250 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "r19" smd custom (at 3.0250 47.5000)
+    (size 0.25 0.25)
+    (layers "F.Cu")
+    (options (clearance outline) (anchor circle))
+    (primitives
+      (gr_poly
+        (pts
+        (xy 0.5250 0.0000)
+        (xy -0.5250 -2.3000)
+        (xy -0.5250 2.3000))
+        (width 0) (fill yes))))
+  (pad "v_c0" thru_hole circle (at -3.7500 -48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c0" thru_hole circle (at -3.7500 -46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c1" thru_hole circle (at -1.2500 -46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c2" thru_hole circle (at 1.2500 -46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 48.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 43.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 38.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 33.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 28.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 23.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 18.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 13.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 8.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 3.4000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -1.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -6.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -11.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -16.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -21.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -26.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -31.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -36.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -41.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (pad "v_c3" thru_hole circle (at 3.7500 -46.6000)
+    (size 0.5000 0.5000)
+    (drill 0.3000)
+    (layers "*.Cu" "*.Mask"))
+  (fp_line (start -3.7500 -48.4000) (end -3.7500 -46.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -43.4000) (end -3.7500 -41.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -38.4000) (end -3.7500 -36.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -33.4000) (end -3.7500 -31.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -28.4000) (end -3.7500 -26.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -23.4000) (end -3.7500 -21.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -18.4000) (end -3.7500 -16.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -13.4000) (end -3.7500 -11.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -8.4000) (end -3.7500 -6.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 -3.4000) (end -3.7500 -1.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 1.6000) (end -3.7500 3.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 6.6000) (end -3.7500 8.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 11.6000) (end -3.7500 13.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 16.6000) (end -3.7500 18.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 21.6000) (end -3.7500 23.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 26.6000) (end -3.7500 28.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 31.6000) (end -3.7500 33.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 36.6000) (end -3.7500 38.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 41.6000) (end -3.7500 43.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -3.7500 46.6000) (end -3.7500 48.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -48.4000) (end -1.2500 -46.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -43.4000) (end -1.2500 -41.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -38.4000) (end -1.2500 -36.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -33.4000) (end -1.2500 -31.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -28.4000) (end -1.2500 -26.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -23.4000) (end -1.2500 -21.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -18.4000) (end -1.2500 -16.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -13.4000) (end -1.2500 -11.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -8.4000) (end -1.2500 -6.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 -3.4000) (end -1.2500 -1.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 1.6000) (end -1.2500 3.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 6.6000) (end -1.2500 8.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 11.6000) (end -1.2500 13.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 16.6000) (end -1.2500 18.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 21.6000) (end -1.2500 23.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 26.6000) (end -1.2500 28.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 31.6000) (end -1.2500 33.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 36.6000) (end -1.2500 38.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 41.6000) (end -1.2500 43.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -1.2500 46.6000) (end -1.2500 48.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -48.4000) (end 1.2500 -46.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -43.4000) (end 1.2500 -41.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -38.4000) (end 1.2500 -36.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -33.4000) (end 1.2500 -31.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -28.4000) (end 1.2500 -26.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -23.4000) (end 1.2500 -21.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -18.4000) (end 1.2500 -16.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -13.4000) (end 1.2500 -11.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -8.4000) (end 1.2500 -6.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 -3.4000) (end 1.2500 -1.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 1.6000) (end 1.2500 3.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 6.6000) (end 1.2500 8.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 11.6000) (end 1.2500 13.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 16.6000) (end 1.2500 18.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 21.6000) (end 1.2500 23.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 26.6000) (end 1.2500 28.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 31.6000) (end 1.2500 33.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 36.6000) (end 1.2500 38.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 41.6000) (end 1.2500 43.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 1.2500 46.6000) (end 1.2500 48.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -48.4000) (end 3.7500 -46.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -43.4000) (end 3.7500 -41.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -38.4000) (end 3.7500 -36.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -33.4000) (end 3.7500 -31.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -28.4000) (end 3.7500 -26.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -23.4000) (end 3.7500 -21.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -18.4000) (end 3.7500 -16.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -13.4000) (end 3.7500 -11.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -8.4000) (end 3.7500 -6.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 -3.4000) (end 3.7500 -1.6000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 1.6000) (end 3.7500 3.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 6.6000) (end 3.7500 8.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 11.6000) (end 3.7500 13.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 16.6000) (end 3.7500 18.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 21.6000) (end 3.7500 23.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 26.6000) (end 3.7500 28.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 31.6000) (end 3.7500 33.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 36.6000) (end 3.7500 38.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 41.6000) (end 3.7500 43.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start 3.7500 46.6000) (end 3.7500 48.4000)
+    (stroke (width 0.1270) (type solid))
+    (layer "B.Cu"))
+  (fp_line (start -5.0000 -47.5000) (end 5.0000 -47.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -42.5000) (end 5.0000 -42.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -37.5000) (end 5.0000 -37.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -32.5000) (end 5.0000 -32.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -27.5000) (end 5.0000 -27.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -22.5000) (end 5.0000 -22.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -17.5000) (end 5.0000 -17.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -12.5000) (end 5.0000 -12.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -7.5000) (end 5.0000 -7.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 -2.5000) (end 5.0000 -2.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 2.5000) (end 5.0000 2.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 7.5000) (end 5.0000 7.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 12.5000) (end 5.0000 12.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 17.5000) (end 5.0000 17.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 22.5000) (end 5.0000 22.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 27.5000) (end 5.0000 27.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 32.5000) (end 5.0000 32.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 37.5000) (end 5.0000 37.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 42.5000) (end 5.0000 42.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+  (fp_line (start -5.0000 47.5000) (end 5.0000 47.5000)
+    (stroke (width 0.1270) (type solid))
+    (layer "F.Cu"))
+)
