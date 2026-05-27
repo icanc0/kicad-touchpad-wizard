@@ -9,7 +9,8 @@ from pathlib import Path
 
 import pytest
 
-import trackpad  # noqa: F401 — applies kipy 0.7.1 workaround for in-test kipy use
+import trackpad as _trackpad  # applies kipy 0.7.1 workaround
+_ = _trackpad
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WIZARD = REPO_ROOT / "touchpad_wizard.py"

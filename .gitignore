@@ -11,6 +11,11 @@ tests/build/
 docs/example.pretty/
 docs/example.kicad_sym
 docs/*.svg
+
+# Transient kicad-cli preference dumps in the artifacts gallery
+artifacts/**/*.kicad_prl
+artifacts/**/board.svg
+artifacts/**/board-color.svg
 .env
 .venv/
 *.egg

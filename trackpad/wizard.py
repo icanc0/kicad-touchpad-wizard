@@ -363,10 +363,58 @@ def _cli_emit(argv: list[str]) -> int:
     return 0
 
 
+def _cli_emit_circle(argv: list[str]) -> int:
+    """Standalone CLI for the circular/wheel trackpad shape."""
+    import argparse
+
+    from trackpad.circular import (
+        CircularParams,
+        build_circular_trackpad,
+        render_circular_footprint,
+    )
+    from trackpad.units import mm as nm_from_mm
+
+    parser = argparse.ArgumentParser(
+        prog="touchpad-wizard emit-circle",
+        description="Generate a circular (wheel) trackpad footprint.",
+    )
+    parser.add_argument("--diameter", type=float, default=50.0, help="outer diameter in mm")
+    parser.add_argument("--inner-diameter", type=float, default=6.0, help="inner hole diameter in mm")
+    parser.add_argument("--sectors", type=int, default=8, help="angular TX sectors")
+    parser.add_argument("--rings", type=int, default=3, help="concentric RX rings")
+    parser.add_argument("--clearance", type=float, default=0.2, help="electrode clearance mm")
+    parser.add_argument("--no-soldermask", action="store_true")
+    parser.add_argument("--footprint", type=Path, required=True, help="output .kicad_mod path")
+    args = parser.parse_args(argv)
+
+    params = CircularParams(
+        outer_radius=nm_from_mm(args.diameter / 2),
+        inner_radius=nm_from_mm(args.inner_diameter / 2),
+        sectors=args.sectors,
+        rings=args.rings,
+        clearance=nm_from_mm(args.clearance),
+        add_soldermask=not args.no_soldermask,
+        arc_steps_per_sector=8,
+    )
+    err = params.validate()
+    if err is not None:
+        print(f"error: {err}", file=sys.stderr)
+        return 1
+
+    trackpad = build_circular_trackpad(params)
+    text = render_circular_footprint(trackpad)
+    args.footprint.parent.mkdir(parents=True, exist_ok=True)
+    args.footprint.write_text(text, encoding="utf-8")
+    print(f"wrote footprint: {args.footprint}")
+    return 0
+
+
 def main() -> None:
     argv = sys.argv[1:]
     if argv and argv[0] == "emit":
         sys.exit(_cli_emit(argv[1:]))
+    if argv and argv[0] == "emit-circle":
+        sys.exit(_cli_emit_circle(argv[1:]))
     TrackpadWizard().run()
 
 
