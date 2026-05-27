@@ -1,9 +1,92 @@
-# Kicad Touchpad Wizard
-Wizard for generating pure PCB touchpad patterns, tested on KiCad 9. 
+# KiCad Touchpad Wizard
 
-> [!WARNING]
-> This is very incomplete, lacking several key features. Please file an issue if you'd like to help me out.
+Generates capacitive trackpad PCB footprints **with a matching schematic symbol**
+so the pads actually bind to something on the schematic. Works on KiCad 9, 10,
+and survives the KiCad 11 SWIG removal because it uses the IPC API
+([`kicad-python`](https://pypi.org/project/kicad-python/)), not the old `pcbnew`
+bindings.
 
 ![image](https://github.com/user-attachments/assets/b56988f8-34cb-4c77-aedf-7802839b1067)
 
-Also shout out to KiCAD for giving me *zero* documentation on making scripts like this. 
+## What you get
+
+- One footprint (`Trackpad-WxHmm.kicad_mod`) — trapezoidal SMD pads, optional
+  routing vias and traces.
+- One schematic symbol (`Trackpad-WxHmm` in `touchpad-wizard.kicad_sym`) whose
+  pin numbers exactly match the footprint's pad numbers.
+- TX columns numbered `T1, T2, …` and RX rows numbered `R1, R2, …` — no collisions.
+
+## Use it
+
+There are two ways. Pick whichever fits your workflow.
+
+### Option A — Standalone CLI (easiest, works with any KiCad version)
+
+```bash
+pip install kicad-python   # the only dependency
+python touchpad_wizard.py emit \
+    --width 50 --height 20 \
+    --tx-columns 5 --rx-rows 5 \
+    --footprint MyProject.pretty/Trackpad-50x20mm.kicad_mod \
+    --symbol MyProject.kicad_sym
+```
+
+That writes the footprint to your `.pretty` directory and the symbol to a
+`.kicad_sym` library. Add both to your project's library tables and the
+schematic-to-PCB binding works.
+
+Run `python touchpad_wizard.py emit --help` for the full parameter list.
+
+### Option B — In-KiCad wizard (live parameter preview)
+
+1. Find your KiCad plugin directory:
+   - Linux: `~/.local/share/kicad/9.0/plugins/`
+   - macOS: `~/Library/Application Support/kicad/9.0/plugins/`
+   - Windows: `%APPDATA%\kicad\9.0\plugins\`
+2. Clone this repo into a `touchpad-wizard/` subdirectory there.
+3. In KiCad: Preferences → Plugins → enable the API server.
+4. Open the footprint editor → File → Create from Wizard → "Trackpad".
+
+Adjust parameters with live preview. On generate, the footprint lands in the
+editor and the matching symbol is appended to
+`~/Documents/KiCad/touchpad-wizard.kicad_sym` (override with
+`KICAD_TOUCHPAD_WIZARD_SYM_LIB`). Add that file once as a global symbol library
+and every future trackpad you generate slots into it automatically.
+
+## How it stays correct
+
+- **Strict types end-to-end.** `pyright --strict` passes; `TrackpadParams` is a
+  frozen, slotted dataclass parsed once at the kipy boundary, and downstream
+  code consumes typed `PadSpec`/`ViaSpec`/`SegmentSpec` dataclasses — no
+  dict-juggling.
+- **Headless tests with `kicad-cli`.** Tier 1 tests pure geometry with
+  hypothesis property tests. Tier 2 invokes the wizard binary the way KiCad
+  does. Tier 3 hands the generated `.kicad_mod`/`.kicad_sym` to `kicad-cli`
+  for headless SVG rendering — no GUI, no display, no screen-lock interaction.
+  Golden-text snapshots catch any geometric drift.
+- **One source of truth for pad numbers.** The geometry layer assigns
+  `T1…Tn`/`R1…Rm` once; both the footprint emitter and the symbol emitter
+  consume the same list. Numbers cannot diverge.
+
+## Development
+
+```bash
+git clone https://github.com/icanc0/kicad-touchpad-wizard
+cd kicad-touchpad-wizard
+python -m venv .venv && . .venv/bin/activate
+pip install -e .[dev]
+
+ruff check trackpad/ tests/ touchpad_wizard.py
+pyright trackpad/ touchpad_wizard.py
+pytest                       # all tiers
+pytest -m "not integration"  # skip kicad-cli rendering
+```
+
+CI runs ruff + pyright + pytest on Python 3.10–3.12, plus an integration job
+that installs KiCad and renders via `kicad-cli` under `xvfb-run`.
+
+## Legacy SWIG version
+
+The previous SWIG-based wizard (KiCad 8 and early 9) is preserved at the
+[`v0-swig-legacy`](../../tree/v0-swig-legacy) git tag. It will not work on
+KiCad 11+ because `pcbnew`'s Python bindings have been removed there.

@@ -1,0 +1,74 @@
+[project]
+name = "kicad-touchpad-wizard"
+version = "1.0.0"
+description = "KiCad wizard that generates capacitive trackpad footprints with matching schematic symbols"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "icanc0" }]
+license = { text = "MIT" }
+dependencies = [
+  "kicad-python >= 0.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest >= 8",
+  "hypothesis >= 6",
+  "pyright >= 1.1",
+  "ruff >= 0.6",
+]
+
+[project.scripts]
+touchpad-wizard = "trackpad.wizard:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["trackpad*"]
+
+[tool.pyright]
+include = ["trackpad", "tests", "touchpad_wizard.py"]
+exclude = ["**/__pycache__"]
+typeCheckingMode = "strict"
+# 3.10 minimum so slots=True dataclasses are inferred correctly by pyright.
+pythonVersion = "3.10"
+venvPath = ".."
+venv = "kicad-touchpad-wizard-venv"
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnknownVariableType = false
+reportUnknownArgumentType = false
+reportUnknownLambdaType = false
+reportUntypedBaseClass = false
+reportUnknownParameterType = false
+reportMissingParameterType = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+  "E", "F", "W",      # pyflakes + pycodestyle
+  "I",                # isort
+  "N",                # pep8-naming
+  "UP",               # pyupgrade
+  "B",                # bugbear
+  "SIM",              # simplify
+  "PT",               # pytest style
+]
+ignore = [
+  "E501",  # line length handled by formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]  # allow asserts in tests
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+  "integration: tests that require kicad-cli to render artifacts",
+]

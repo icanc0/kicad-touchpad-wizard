@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main, kipy-rewrite]
+  pull_request:
+
+jobs:
+  fast:
+    name: Tier 1+2 (no KiCad)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Ruff
+        run: ruff check trackpad/ tests/ touchpad_wizard.py
+
+      - name: Pyright (strict)
+        run: pyright trackpad/ touchpad_wizard.py
+
+      - name: Pytest (non-integration)
+        run: pytest -m "not integration"
+
+  integration:
+    name: Tier 3+4 (kicad-cli render)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install KiCad nightly
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-9.0-releases
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends kicad xvfb
+
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Headless render tests
+        # xvfb-run is belt-and-suspenders. kicad-cli's export commands do not
+        # actually need a display, but we wrap it anyway in case any sub-command
+        # tries to pop a wx dialog. Screen-lock state is irrelevant because the
+        # GUI is never launched.
+        run: xvfb-run -a pytest -m integration -v
+
+      - name: Upload golden-diff artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-output
+          path: |
+            tests/golden/
+            /tmp/pytest-of-runner/
+          if-no-files-found: ignore

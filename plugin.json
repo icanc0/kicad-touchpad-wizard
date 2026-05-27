@@ -1,0 +1,19 @@
+{
+  "identifier": "io.github.icanc0.touchpad-wizard",
+  "name": "Trackpad Wizard",
+  "description": "Generates a capacitive trackpad footprint plus a matching schematic symbol.",
+  "runtime": {
+    "type": "python",
+    "min_version": "3.10"
+  },
+  "actions": [
+    {
+      "identifier": "generate-trackpad",
+      "name": "Trackpad",
+      "description": "Capacitive trackpad footprint generator with matching schematic symbol.",
+      "show-button": true,
+      "scopes": ["footprint_wizard"],
+      "entrypoint": "touchpad_wizard.py"
+    }
+  ]
+}
