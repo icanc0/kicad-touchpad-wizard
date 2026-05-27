@@ -8,6 +8,9 @@ __pycache__/
 build/
 dist/
 tests/build/
+docs/example.pretty/
+docs/example.kicad_sym
+docs/*.svg
 .env
 .venv/
 *.egg

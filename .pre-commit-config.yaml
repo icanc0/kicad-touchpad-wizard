@@ -1,0 +1,23 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: pyright
+        name: pyright (strict)
+        entry: pyright
+        language: system
+        types: [python]
+        pass_filenames: false
+        args: [trackpad/, touchpad_wizard.py]
+      - id: pytest-fast
+        name: pytest (fast tiers only)
+        entry: pytest
+        language: system
+        args: [-m, "not integration", -q]
+        pass_filenames: false
+        stages: [pre-commit]

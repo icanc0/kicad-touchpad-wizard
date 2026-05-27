@@ -120,57 +120,67 @@ class TestKicadModRenders:
         assert svgs, f"expected at least one SVG in {out_dir}"
 
 
-class TestGoldenFootprint:
-    """The .kicad_mod text is deterministic. Diff against the checked-in golden."""
+SIZES = [
+    (50, 20, 5, 5),
+    (80, 40, 8, 4),
+    (30, 30, 4, 4),
+    (100, 50, 10, 6),
+]
 
-    def test_default_footprint_matches_golden(self, tmp_path: Path) -> None:
-        fp_path, _ = _emit(tmp_path)
+
+def _diff(expected: str, actual: str, label: str) -> str:
+    import difflib
+
+    return "\n".join(
+        difflib.unified_diff(
+            expected.splitlines(),
+            actual.splitlines(),
+            fromfile=f"golden:{label}",
+            tofile=f"actual:{label}",
+            lineterm="",
+        )
+    )
+
+
+@pytest.mark.parametrize(("w", "h", "tx", "rx"), SIZES)
+class TestGoldens:
+    """Deterministic .kicad_mod / .kicad_sym text outputs.
+
+    To regenerate after intentional changes:
+        python scripts/regen_goldens.py
+    """
+
+    def test_footprint_matches_golden(
+        self, tmp_path: Path, w: int, h: int, tx: int, rx: int
+    ) -> None:
+        fp_path, _ = _emit(
+            tmp_path, width=w, height=h, tx_columns=tx, rx_rows=rx
+        )
         actual = _strip_nondeterministic(fp_path.read_text())
-        golden = GOLDEN_DIR / "Trackpad-50x20mm.kicad_mod"
+        golden = GOLDEN_DIR / f"Trackpad-{w}x{h}mm.kicad_mod"
         if not golden.exists():
             golden.parent.mkdir(parents=True, exist_ok=True)
             golden.write_text(actual)
             pytest.skip(f"created golden at {golden}; re-run to compare")
         expected = _strip_nondeterministic(golden.read_text())
         if actual != expected:
-            # Helpful diff on failure
-            import difflib
+            pytest.fail(f"footprint diverged:\n{_diff(expected, actual, golden.name)}")
 
-            diff = "\n".join(
-                difflib.unified_diff(
-                    expected.splitlines(),
-                    actual.splitlines(),
-                    fromfile=str(golden),
-                    tofile=str(fp_path),
-                    lineterm="",
-                )
-            )
-            pytest.fail("footprint diverged from golden:\n" + diff)
-
-
-class TestGoldenSymbol:
-    def test_default_symbol_matches_golden(self, tmp_path: Path) -> None:
-        _, sym_path = _emit(tmp_path)
+    def test_symbol_matches_golden(
+        self, tmp_path: Path, w: int, h: int, tx: int, rx: int
+    ) -> None:
+        _, sym_path = _emit(
+            tmp_path, width=w, height=h, tx_columns=tx, rx_rows=rx
+        )
         actual = _strip_nondeterministic(sym_path.read_text())
-        golden = GOLDEN_DIR / "Trackpad-50x20mm.kicad_sym"
+        golden = GOLDEN_DIR / f"Trackpad-{w}x{h}mm.kicad_sym"
         if not golden.exists():
             golden.parent.mkdir(parents=True, exist_ok=True)
             golden.write_text(actual)
             pytest.skip(f"created golden at {golden}; re-run to compare")
         expected = _strip_nondeterministic(golden.read_text())
         if actual != expected:
-            import difflib
-
-            diff = "\n".join(
-                difflib.unified_diff(
-                    expected.splitlines(),
-                    actual.splitlines(),
-                    fromfile=str(golden),
-                    tofile=str(sym_path),
-                    lineterm="",
-                )
-            )
-            pytest.fail("symbol diverged from golden:\n" + diff)
+            pytest.fail(f"symbol diverged:\n{_diff(expected, actual, golden.name)}")
 
 
 class TestPinNumbersMatchPadNumbers:

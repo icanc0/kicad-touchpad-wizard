@@ -6,7 +6,11 @@ and survives the KiCad 11 SWIG removal because it uses the IPC API
 ([`kicad-python`](https://pypi.org/project/kicad-python/)), not the old `pcbnew`
 bindings.
 
-![image](https://github.com/user-attachments/assets/b56988f8-34cb-4c77-aedf-7802839b1067)
+| Footprint | Matching symbol |
+|---|---|
+| ![footprint](docs/footprint.png) | ![symbol](docs/symbol.png) |
+
+Both images above were generated headlessly by the test suite: `python touchpad_wizard.py emit` writes the `.kicad_mod` and `.kicad_sym`, and `kicad-cli {fp,sym} export svg` renders the previews. No KiCad GUI is ever launched.
 
 ## What you get
 
