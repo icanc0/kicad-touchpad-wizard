@@ -34,8 +34,8 @@ def render_symbol(trackpad: Trackpad, params: TrackpadParams) -> str:
     height_mm = params.height / 1_000_000
     name = f"Trackpad-{width_mm:g}x{height_mm:g}mm"
 
-    tx_pins = [f"TX{i + 1}" for i in range(trackpad.tx_count)]
-    rx_pins = [f"RX{i + 1}" for i in range(trackpad.rx_count)]
+    tx_pins = [f"TX{i}" for i in range(trackpad.tx_count)]
+    rx_pins = [f"RX{i}" for i in range(trackpad.rx_count)]
 
     rows = max(len(tx_pins), len(rx_pins))
     body_height_mm = rows * PIN_PITCH_MM + BODY_VERTICAL_PADDING_MM * 2
@@ -48,7 +48,9 @@ def render_symbol(trackpad: Trackpad, params: TrackpadParams) -> str:
         return body_top - BODY_VERTICAL_PADDING_MM - index * PIN_PITCH_MM
 
     pins: list[str] = []
-    # TX pins on left, facing right (orientation 0 means pin extends to the right from anchor)
+    # TX pins on left, facing right (orientation 0 means pin extends to the right from anchor).
+    # Pin numbers (c0..) match the footprint pad numbers exactly so the symbol-to-footprint
+    # binding works without manual mapping.
     for i, label in enumerate(tx_pins):
         pins.append(
             _pin(
@@ -56,7 +58,7 @@ def render_symbol(trackpad: Trackpad, params: TrackpadParams) -> str:
                 y=pin_y(i),
                 angle_deg=0,
                 name=label,
-                number=f"T{i + 1}",
+                number=f"c{i}",
             )
         )
     # RX pins on right, facing left
@@ -67,7 +69,7 @@ def render_symbol(trackpad: Trackpad, params: TrackpadParams) -> str:
                 y=pin_y(i),
                 angle_deg=180,
                 name=label,
-                number=f"R{i + 1}",
+                number=f"r{i}",
             )
         )
 

@@ -75,10 +75,10 @@ class TestEmitCustomSizes:
         pads = re.findall(r'\(pad "[^"]+"', text)
         assert len(pads) == 192
 
-        tx_numbers = {m.group(1) for m in re.finditer(r'\(pad "(T\d+)"', text)}
-        rx_numbers = {m.group(1) for m in re.finditer(r'\(pad "(R\d+)"', text)}
-        assert tx_numbers == {f"T{i}" for i in range(1, 9)}
-        assert rx_numbers == {f"R{i}" for i in range(1, 5)}
+        tx_numbers = {m.group(1) for m in re.finditer(r'\(pad "(c\d+)"', text)}
+        rx_numbers = {m.group(1) for m in re.finditer(r'\(pad "(r\d+)"', text)}
+        assert tx_numbers == {f"c{i}" for i in range(8)}
+        assert rx_numbers == {f"r{i}" for i in range(4)}
 
     def test_no_drill_holes(self, tmp_path: Path) -> None:
         fp, _ = _run_emit(tmp_path, "--no-drill-holes")
@@ -141,6 +141,6 @@ class TestPinPadAlignment:
         sym_text = sym.read_text()
 
         pad_numbers = set(re.findall(r'\(pad "([^"]+)"', fp_text))
-        electrode_pads = {n for n in pad_numbers if re.match(r"^[TR]\d+$", n)}
+        electrode_pads = {n for n in pad_numbers if re.match(r"^[cr]\d+$", n)}
         pin_numbers = set(re.findall(r'\(number "([^"]+)"', sym_text))
         assert pin_numbers == electrode_pads

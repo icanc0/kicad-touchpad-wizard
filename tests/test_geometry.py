@@ -47,9 +47,11 @@ class TestDefaults:
         trackpad = build_trackpad(_params())
         tx_numbers = {p.number for p in trackpad.pads if p.electrode == Electrode.TX}
         rx_numbers = {p.number for p in trackpad.pads if p.electrode == Electrode.RX}
-        assert tx_numbers == {f"T{i + 1}" for i in range(5)}
-        assert rx_numbers == {f"R{i + 1}" for i in range(5)}
-        # No collisions between TX and RX (the original bug we're fixing)
+        # All pads in column i share number `c{i}` — that's intentional, each column
+        # is a single capacitive electrode (one net) made up of many trapezoid pads.
+        assert tx_numbers == {f"c{i}" for i in range(5)}
+        assert rx_numbers == {f"r{i}" for i in range(5)}
+        # TX and RX namespaces must not collide.
         assert not (tx_numbers & rx_numbers)
 
 
@@ -101,7 +103,7 @@ class TestProperties:
             pytest.skip("validation rejected")
         trackpad = build_trackpad(params)
         for pad in trackpad.pads:
-            expected_prefix = "T" if pad.electrode == Electrode.TX else "R"
+            expected_prefix = "c" if pad.electrode == Electrode.TX else "r"
             assert pad.number == f"{expected_prefix}{pad.electrode_index}"
 
     @given(trackpad_params())
@@ -121,6 +123,7 @@ class TestProperties:
         if params.validate() is not None:
             pytest.skip("validation rejected")
         trackpad = build_trackpad(params)
-        tx_numbers = {f"T{i + 1}" for i in range(trackpad.tx_count)}
+        # Vias are named `v_c{i}` (the original convention) — one per TX column.
+        expected = {f"v_c{i}" for i in range(trackpad.tx_count)}
         for via in trackpad.vias:
-            assert via.associated_pad_number in tx_numbers
+            assert via.associated_pad_number in expected

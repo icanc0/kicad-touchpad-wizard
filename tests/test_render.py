@@ -184,7 +184,7 @@ class TestGoldens:
 
 
 class TestPinNumbersMatchPadNumbers:
-    """The whole reason this rewrite exists: pad numbers and symbol pin numbers line up."""
+    """The schematic-symbol-binding fix: every symbol pin number must match a pad number."""
 
     def test_pads_and_pins_share_numbers(self, tmp_path: Path) -> None:
         fp_path, sym_path = _emit(tmp_path)
@@ -194,9 +194,8 @@ class TestPinNumbersMatchPadNumbers:
         pad_numbers = set(re.findall(r'\(pad "([^"]+)"', fp_text))
         pin_numbers = set(re.findall(r'\(number "([^"]+)"', sym_text))
 
-        # Every pin must have a matching pad. Pads include via pads which share numbers
-        # with their associated electrode pad, so set equality is the right check.
+        # Every pin must have a matching pad.
         assert pin_numbers <= pad_numbers, f"orphan pins: {pin_numbers - pad_numbers}"
-        # And every electrode (T*/R*) must have at least one pin
-        electrode_pads = {n for n in pad_numbers if re.match(r"^[TR]\d+$", n)}
+        # And every electrode (c*/r*) must have at least one pin
+        electrode_pads = {n for n in pad_numbers if re.match(r"^[cr]\d+$", n)}
         assert pin_numbers == electrode_pads

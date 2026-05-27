@@ -74,12 +74,32 @@ class Trackpad:
     pads: list[PadSpec]
     vias: list[ViaSpec]
     segments: list[SegmentSpec]
-    tx_count: int  # number of TX columns
-    rx_count: int  # number of RX rows
+    tx_count: int  # number of TX columns (number of `c0..c{tx_count-1}` pad numbers)
+    rx_count: int  # number of RX rows (number of `r0..r{rx_count-1}` pad numbers)
+
+
+def _legacy_angle(triangle_angle_param: float) -> float:
+    """Map the wizard's triangle_angle parameter to the actual rendered angle.
+
+    The original SWIG code called `EDA_ANGLE(rotation * 10)`, which treated the
+    argument as degrees directly. The intended 135° therefore wrapped to
+    1350 mod 360 = 270°, and that is what the user's known-good reference
+    pattern depends on. We preserve that mapping so default param 135 → 270°
+    keeps producing the visually-correct trackpad.
+    """
+    return (triangle_angle_param * 10.0) % 360.0
 
 
 def build_trackpad(params: TrackpadParams) -> Trackpad:
-    """Translate parameters into pure geometric specs."""
+    """Translate parameters into pure geometric specs.
+
+    Each TX column ``c{i}`` is a vertical strip of zigzagging triangles
+    (top-loop and bottom-loop pads interleave at the same x). All pads in
+    column i share the pad number ``c{i}`` so they form one electrical net —
+    that's the entire point of an interdigitated capacitive sensor.
+    Likewise each RX row ``r{j}`` is a horizontal strip with all pads sharing
+    number ``r{j}``.
+    """
     width = params.width
     height = params.height
     seg_x = params.edge_segments_x
@@ -94,18 +114,23 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
     vias: list[ViaSpec] = []
     segments: list[SegmentSpec] = []
 
-    angle = params.triangle_angle
+    top_angle = _legacy_angle(float(params.triangle_angle))           # default 135 -> 270
+    bottom_angle = _legacy_angle(float(params.triangle_angle) - 90.0)  # default 45  -> 90
+    right_angle = _legacy_angle(90.0)                                  # 180
+    left_angle = _legacy_angle(0.0)                                    # 0
+
     masked = params.add_soldermask
     trap_delta = Nanometers(min(pad_width, pad_height) - clearance)
 
-    # TX columns occupy top and bottom edges (vertical strips).
-    # Each column gets one TX pad number; both its top and bottom triangles share that number.
+    # TX columns occupy the full vertical strip at each x position. Top-loop and
+    # bottom-loop pads interleave at the same x but staggered y, so the column
+    # looks like a zigzag of alternating-orientation triangles.
     for col in range(seg_x):
-        tx_number = f"T{col + 1}"
-        pin_name = f"TX{col + 1}"
+        tx_number = f"c{col}"
+        pin_name = f"TX{col}"
         x = -width // 2 + col * (pad_width * 2) + pad_width
 
-        # Top-edge triangles
+        # Top-loop pads
         for row in range(seg_y):
             y = -height // 2 + pad_height // 2 + row * (pad_height * 2)
             pos = Point(Nanometers(x), Nanometers(y - half_clearance))
@@ -114,12 +139,12 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     number=tx_number,
                     pin_name=pin_name,
                     electrode=Electrode.TX,
-                    electrode_index=col + 1,
+                    electrode_index=col,
                     position=pos,
                     size_x=Nanometers(pad_height - clearance),
                     size_y=Nanometers(pad_width - clearance),
                     trapezoid_delta=trap_delta,
-                    angle=Degrees(angle),
+                    angle=Degrees(top_angle),
                     masked=masked,
                 )
             )
@@ -128,7 +153,7 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                 via_pos = Point(Nanometers(x), via_y)
                 vias.append(
                     ViaSpec(
-                        associated_pad_number=tx_number,
+                        associated_pad_number=f"v_{tx_number}",
                         position=via_pos,
                         diameter=params.via_diameter,
                         drill=params.via_drill,
@@ -152,7 +177,7 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     )
                 )
 
-        # Bottom-edge triangles (rotated 45 deg from the top)
+        # Bottom-loop pads (interleaved into the same column at offset y)
         for row in range(seg_y):
             y = height // 2 - pad_height // 2 - row * (pad_height * 2)
             pos = Point(Nanometers(x), Nanometers(y + half_clearance))
@@ -161,12 +186,12 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     number=tx_number,
                     pin_name=pin_name,
                     electrode=Electrode.TX,
-                    electrode_index=col + 1,
+                    electrode_index=col,
                     position=pos,
                     size_x=Nanometers(pad_height - clearance),
                     size_y=Nanometers(pad_width - clearance),
                     trapezoid_delta=trap_delta,
-                    angle=Degrees(angle - 90.0),
+                    angle=Degrees(bottom_angle),
                     masked=masked,
                 )
             )
@@ -175,20 +200,20 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                 via_pos = Point(Nanometers(x), via_y)
                 vias.append(
                     ViaSpec(
-                        associated_pad_number=tx_number,
+                        associated_pad_number=f"v_{tx_number}",
                         position=via_pos,
                         diameter=params.via_diameter,
                         drill=params.via_drill,
                     )
                 )
 
-    # RX rows occupy left and right edges (horizontal strips)
+    # RX rows occupy the full horizontal strip at each y position.
     for row in range(seg_y):
-        rx_number = f"R{row + 1}"
-        pin_name = f"RX{row + 1}"
+        rx_number = f"r{row}"
+        pin_name = f"RX{row}"
         y = -height // 2 + row * (pad_height * 2) + pad_height
 
-        # Front routing line spans the row
+        # Front-side routing trace spans the row.
         if params.add_front_wiring:
             segments.append(
                 SegmentSpec(
@@ -199,7 +224,7 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                 )
             )
 
-        # Right-edge triangles
+        # Right-loop pads
         for col in range(seg_x):
             x = width // 2 - pad_width // 2 - col * (pad_width * 2)
             pos = Point(Nanometers(x + half_clearance), Nanometers(y))
@@ -208,17 +233,17 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     number=rx_number,
                     pin_name=pin_name,
                     electrode=Electrode.RX,
-                    electrode_index=row + 1,
+                    electrode_index=row,
                     position=pos,
                     size_x=Nanometers(pad_width - clearance),
                     size_y=Nanometers(pad_height - clearance),
                     trapezoid_delta=trap_delta,
-                    angle=Degrees(90.0),
+                    angle=Degrees(right_angle),
                     masked=masked,
                 )
             )
 
-        # Left-edge triangles
+        # Left-loop pads
         for col in range(seg_x):
             x = -width // 2 + pad_width // 2 + col * (pad_width * 2)
             pos = Point(Nanometers(x - half_clearance), Nanometers(y))
@@ -227,12 +252,12 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     number=rx_number,
                     pin_name=pin_name,
                     electrode=Electrode.RX,
-                    electrode_index=row + 1,
+                    electrode_index=row,
                     position=pos,
                     size_x=Nanometers(pad_width - clearance),
                     size_y=Nanometers(pad_height - clearance),
                     trapezoid_delta=trap_delta,
-                    angle=Degrees(0.0),
+                    angle=Degrees(left_angle),
                     masked=masked,
                 )
             )
