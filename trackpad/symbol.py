@@ -34,43 +34,45 @@ def render_symbol(trackpad: Trackpad, params: TrackpadParams) -> str:
     height_mm = params.height / 1_000_000
     name = f"Trackpad-{width_mm:g}x{height_mm:g}mm"
 
-    tx_pins = [f"TX{i}" for i in range(trackpad.tx_count)]
-    rx_pins = [f"RX{i}" for i in range(trackpad.rx_count)]
+    tx_count = trackpad.tx_count
+    rx_count = trackpad.rx_count
 
-    rows = max(len(tx_pins), len(rx_pins))
-    body_height_mm = rows * PIN_PITCH_MM + BODY_VERTICAL_PADDING_MM * 2
-    body_top = body_height_mm / 2
+    # The sensor is self-capacitance: each electrode is a single node. We seat
+    # TX columns on the top & bottom edges and RX rows on the left & right
+    # edges, and give every electrode *two* same-numbered pins on opposite
+    # edges. That makes the either-end connectivity explicit in the schematic —
+    # KiCad treats duplicate pin numbers as one net, so wiring the column/row
+    # from either end is functionally identical. Body is sized to seat the pins
+    # with a floor so the self-capacitance note still fits.
+    body_width = max(tx_count + 1, 6) * PIN_PITCH_MM
+    body_height = max(rx_count + 1, 5) * PIN_PITCH_MM
+    body_top = body_height / 2
     body_bottom = -body_top
-    body_left = -BODY_WIDTH_MM / 2
-    body_right = BODY_WIDTH_MM / 2
-
-    def pin_y(index: int) -> float:
-        return body_top - BODY_VERTICAL_PADDING_MM - index * PIN_PITCH_MM
+    body_left = -body_width / 2
+    body_right = body_width / 2
+    tx_step = body_width / (tx_count + 1)
+    rx_step = body_height / (rx_count + 1)
 
     pins: list[str] = []
-    # TX pins on left, facing right (orientation 0 means pin extends to the right from anchor).
-    # Pin numbers (c0..) match the footprint pad numbers exactly so the symbol-to-footprint
-    # binding works without manual mapping.
-    for i, label in enumerate(tx_pins):
+    # TX columns -> top edge (270°, points down into body) + bottom edge (90°, up).
+    # Pin numbers (c0..) match the footprint pad numbers exactly so the
+    # symbol-to-footprint binding works without manual mapping.
+    for i in range(tx_count):
+        x = body_left + (i + 1) * tx_step
         pins.append(
-            _pin(
-                x=body_left - PIN_LENGTH_MM,
-                y=pin_y(i),
-                angle_deg=0,
-                name=label,
-                number=f"c{i}",
-            )
+            _pin(x=x, y=body_top + PIN_LENGTH_MM, angle_deg=270, name=f"TX{i}", number=f"c{i}")
         )
-    # RX pins on right, facing left
-    for i, label in enumerate(rx_pins):
         pins.append(
-            _pin(
-                x=body_right + PIN_LENGTH_MM,
-                y=pin_y(i),
-                angle_deg=180,
-                name=label,
-                number=f"r{i}",
-            )
+            _pin(x=x, y=body_bottom - PIN_LENGTH_MM, angle_deg=90, name=f"TX{i}", number=f"c{i}")
+        )
+    # RX rows -> left edge (0°, points right) + right edge (180°, points left).
+    for j in range(rx_count):
+        y = body_top - (j + 1) * rx_step
+        pins.append(
+            _pin(x=body_left - PIN_LENGTH_MM, y=y, angle_deg=0, name=f"RX{j}", number=f"r{j}")
+        )
+        pins.append(
+            _pin(x=body_right + PIN_LENGTH_MM, y=y, angle_deg=180, name=f"RX{j}", number=f"r{j}")
         )
 
     body_rect = (
@@ -78,25 +80,34 @@ def render_symbol(trackpad: Trackpad, params: TrackpadParams) -> str:
         f"(end {body_right:.4f} {body_top:.4f}) "
         f"(stroke (width 0.254) (type default)) (fill (type background)))"
     )
+    note = (
+        '      (text "Self-capacitance\\nelectrode = one net\\nconnect either end" '
+        "(at 0 0 0)\n"
+        "        (effects (font (size 1.016 1.016))))"
+    )
     pins_block = "\n".join(pins)
+    ref_y = body_top + PIN_LENGTH_MM + 1.27
+    val_y = body_bottom - PIN_LENGTH_MM - 1.27
 
     return f"""(kicad_symbol_lib (version 20231120) (generator "kicad-touchpad-wizard")
   (symbol "{_esc(name)}"
     (pin_names (offset 0.508))
     (in_bom yes) (on_board yes)
-    (property "Reference" "TP" (at 0 {body_top + 1.27:.4f} 0)
+    (property "Reference" "TP" (at 0 {ref_y:.4f} 0)
       (effects (font (size 1.27 1.27))))
-    (property "Value" "{_esc(name)}" (at 0 {body_bottom - 1.27:.4f} 0)
+    (property "Value" "{_esc(name)}" (at 0 {val_y:.4f} 0)
       (effects (font (size 1.27 1.27))))
     (property "Footprint" "Trackpad:{_esc(name)}" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide))
     (property "Datasheet" "" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide))
-    (property "Description" "Capacitive trackpad {width_mm:g}x{height_mm:g} mm \
-({trackpad.tx_count} TX cols, {trackpad.rx_count} RX rows)" (at 0 0 0)
+    (property "Description" "Self-capacitance trackpad {width_mm:g}x{height_mm:g} mm \
+({trackpad.tx_count} TX cols, {trackpad.rx_count} RX rows); each electrode is one node, \
+connect either end" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide))
     (symbol "{_esc(name)}_1_1"
 {body_rect}
+{note}
 {pins_block}
     )
   )

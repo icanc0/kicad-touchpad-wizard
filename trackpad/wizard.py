@@ -22,7 +22,7 @@ from kipy.wizards import WizardBase, WizardInfo, WizardMetaInfo, WizardParameter
 # kipy 0.7.1 missing-export bug *before* any WizardInfo()/WizardMetaInfo() call below.
 from trackpad.footprint import to_footprint
 from trackpad.geometry import build_trackpad
-from trackpad.params import TrackpadParams
+from trackpad.params import ConnectionStyle, TrackpadParams
 from trackpad.symbol import render_symbol
 from trackpad.units import mm
 
@@ -279,6 +279,27 @@ def _parameter_definitions() -> list[WizardParameter]:
             min_value=0.0,
             max_value=360.0,
         ),
+        WizardParameter.create(
+            identifier="connection_style",
+            name="Edge connection",
+            description=(
+                "Perimeter connection landing: apex (none), edge (full edge pad), "
+                "center (small alignment pad). Self-cap, so either end works."
+            ),
+            category=WizardParameterCategory.WPC_PADS,
+            data_type=WizardParameterDataType.WPDT_STRING,
+            value=defaults.connection_style.value,
+            validation_regex="apex|edge|center",
+        ),
+        WizardParameter.create(
+            identifier="landing_size",
+            name="Landing size",
+            description="Size/thickness of the edge/center connection landing",
+            category=WizardParameterCategory.WPC_PADS,
+            data_type=WizardParameterDataType.WPDT_DISTANCE,
+            value=int(defaults.landing_size),
+            min_value=int(mm(0.2)),
+        ),
     ]
 
 
@@ -320,6 +341,19 @@ def _cli_emit(argv: list[str]) -> int:
         "--triangle-angle", type=float, default=135.0, help="degrees (default 135)"
     )
     parser.add_argument(
+        "--connection-style",
+        choices=[s.value for s in ConnectionStyle],
+        default=ConnectionStyle.APEX_ONLY.value,
+        help="perimeter connection landing: apex (none), edge (full edge pad), "
+        "center (small alignment pad). default: apex",
+    )
+    parser.add_argument(
+        "--landing-size",
+        type=float,
+        default=1.0,
+        help="landing pad size/thickness mm, for edge/center styles (default 1.0)",
+    )
+    parser.add_argument(
         "--footprint", type=Path, required=True, help="output .kicad_mod path"
     )
     parser.add_argument("--symbol", type=Path, help="output .kicad_sym path (optional)")
@@ -343,6 +377,8 @@ def _cli_emit(argv: list[str]) -> int:
         add_back_wiring=not args.no_back_wiring,
         add_soldermask=not args.no_soldermask,
         triangle_angle=Degrees(args.triangle_angle),
+        connection_style=ConnectionStyle.from_str(args.connection_style),
+        landing_size=nm_from_mm(args.landing_size),
     )
     err = params.validate()
     if err is not None:

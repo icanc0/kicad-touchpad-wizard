@@ -41,6 +41,32 @@ schematic-to-PCB binding works.
 
 Run `python touchpad_wizard.py emit --help` for the full parameter list.
 
+#### Perimeter connection landings (`--connection-style`)
+
+By default the triangular electrodes are tied together only by their apex vias.
+Pass `--connection-style` to add a copper landing on the outer edge of each
+perimeter electrode — a flush connection/alignment point. It follows the
+solder-mask setting (covered by default, like the electrodes — no exposed copper
+on the finger surface).
+Because the sensor is self-capacitance, an electrode is a single node, so a
+landing appears at **both ends** of every column/row and either is electrically
+identical:
+
+- `apex` *(default)* — no extra landing.
+- `edge` — a pad spanning the whole outer edge, flush to the boundary.
+- `center` — a small pad at the midpoint of each outer edge (alignment aid).
+  Size via `--landing-size` (mm).
+
+```bash
+python touchpad_wizard.py emit --width 45 --height 45 --tx-columns 5 --rx-rows 5 \
+    --connection-style edge --landing-size 1.0 \
+    --footprint MyProject.pretty/Trackpad-45x45mm.kicad_mod --symbol MyProject.kicad_sym
+```
+
+Side-by-side renders of every style live in
+[`artifacts/connection-styles/`](artifacts/connection-styles/) — regenerate them
+with `python scripts/regen_connection_gallery.py`.
+
 ### Option B — In-KiCad wizard (KiCad 10.1+ / 11)
 
 > [!IMPORTANT]

@@ -7,7 +7,15 @@ KiCad rect_delta quirk that broke non-square cells.
 
 from __future__ import annotations
 
-from trackpad.geometry import Layer, PadSpec, Point, SegmentSpec, Trackpad, ViaSpec
+from trackpad.geometry import (
+    LandingPadSpec,
+    Layer,
+    PadSpec,
+    Point,
+    SegmentSpec,
+    Trackpad,
+    ViaSpec,
+)
 from trackpad.params import TrackpadParams
 from trackpad.units import Nanometers
 
@@ -46,6 +54,8 @@ def render_footprint(trackpad: Trackpad, params: TrackpadParams) -> str:
 
     for pad in trackpad.pads:
         parts.append(_render_triangle_pad(pad))
+    for landing in trackpad.landings:
+        parts.append(_render_landing_pad(landing))
     for via in trackpad.vias:
         parts.append(_render_via(via))
     for seg in trackpad.segments:
@@ -81,6 +91,21 @@ def _render_triangle_pad(spec: PadSpec) -> str:
         f"        (pts\n"
         f"{pts_block})\n"
         f"        (width 0) (fill yes))))"
+    )
+
+
+def _render_landing_pad(spec: LandingPadSpec) -> str:
+    """Emit a rectangular connection/alignment landing as a plain `smd rect` pad.
+
+    Mask follows the trackpad setting: covered (``F.Cu`` only) by default, same
+    as the electrode triangles, so the surface has no exposed copper.
+    """
+    layers = '"F.Cu" "F.Mask"' if not spec.masked else '"F.Cu"'
+    return (
+        f'  (pad "{_esc(spec.number)}" smd rect '
+        f"(at {_mm(spec.center.x)} {_mm(spec.center.y)})\n"
+        f"    (size {_mm(spec.size_x)} {_mm(spec.size_y)})\n"
+        f"    (layers {layers}))"
     )
 
 

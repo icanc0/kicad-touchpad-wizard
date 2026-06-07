@@ -3,12 +3,36 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import Enum
 from typing import TYPE_CHECKING
 
 from trackpad.units import Degrees, Nanometers, mm
 
 if TYPE_CHECKING:
     from kipy.wizards import WizardParameter
+
+
+class ConnectionStyle(Enum):
+    """How each perimeter electrode exposes a connection/alignment landing.
+
+    The triangular electrodes are always tied together internally by the apex
+    vias (``v_c*``) and routing traces. This setting adds an extra *landing* on
+    the outer edge of each perimeter triangle — the base that sits on the
+    trackpad boundary — to give a flush, easy-to-reach connection point. Since
+    the sensor is self-capacitance, an electrode is a single node, so a landing
+    on either end is electrically equivalent.
+    """
+
+    APEX_ONLY = "apex"  # no extra landing — original behavior
+    EDGE_PAD = "edge"  # a strip pad spanning the whole outer edge
+    CENTER_PAD = "center"  # a small pad at the midpoint of the outer edge (alignment aid)
+
+    @classmethod
+    def from_str(cls, value: str) -> ConnectionStyle:
+        for member in cls:
+            if member.value == value:
+                return member
+        raise ValueError(f"unknown connection style: {value!r}")
 
 
 @dataclass(frozen=True, slots=True)
@@ -33,6 +57,8 @@ class TrackpadParams:
     add_back_wiring: bool
     add_soldermask: bool
     triangle_angle: Degrees
+    connection_style: ConnectionStyle
+    landing_size: Nanometers
 
     @classmethod
     def defaults(cls) -> TrackpadParams:
@@ -51,6 +77,8 @@ class TrackpadParams:
             add_back_wiring=True,
             add_soldermask=True,
             triangle_angle=Degrees(135.0),
+            connection_style=ConnectionStyle.APEX_ONLY,
+            landing_size=mm(1.0),
         )
 
     @classmethod
@@ -67,7 +95,7 @@ class TrackpadParams:
             if p is None:
                 return default
             value = p.value
-            return int(value) if isinstance(value, (int, float)) else default
+            return int(value) if isinstance(value, int | float) else default
 
         def get_nm(identifier: str, default: Nanometers) -> Nanometers:
             return Nanometers(get_int(identifier, int(default)))
@@ -84,8 +112,20 @@ class TrackpadParams:
             if p is None:
                 return default
             value = p.value
-            if isinstance(value, (int, float)):
+            if isinstance(value, int | float):
                 return Degrees(float(value))
+            return default
+
+        def get_connection_style(identifier: str, default: ConnectionStyle) -> ConnectionStyle:
+            p = lookup.get(identifier)
+            if p is None:
+                return default
+            value = p.value
+            if isinstance(value, str):
+                try:
+                    return ConnectionStyle.from_str(value)
+                except ValueError:
+                    return default
             return default
 
         return cls(
@@ -103,6 +143,8 @@ class TrackpadParams:
             add_back_wiring=get_bool("add_back_wiring", defaults.add_back_wiring),
             add_soldermask=get_bool("add_soldermask", defaults.add_soldermask),
             triangle_angle=get_deg("triangle_angle", defaults.triangle_angle),
+            connection_style=get_connection_style("connection_style", defaults.connection_style),
+            landing_size=get_nm("landing_size", defaults.landing_size),
         )
 
     def validate(self) -> str | None:
@@ -119,4 +161,11 @@ class TrackpadParams:
         pad_height = self.height // (self.edge_segments_y * 2)
         if pad_width <= self.clearance or pad_height <= self.clearance:
             return "clearance is too large for the chosen segment count"
+        if self.connection_style is not ConnectionStyle.APEX_ONLY:
+            if self.landing_size <= 0:
+                return "landing size must be positive"
+            # The landing must fit inside the cell it sits on without bridging
+            # to the neighbouring electrode.
+            if self.landing_size >= min(pad_width, pad_height):
+                return "landing size is too large for the chosen segment count"
         return None

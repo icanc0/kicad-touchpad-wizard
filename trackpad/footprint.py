@@ -27,7 +27,14 @@ from kipy.proto.board.board_types_pb2 import (
 )
 from kipy.proto.common.types import base_types_pb2 as common_types
 
-from trackpad.geometry import Layer, PadSpec, SegmentSpec, Trackpad, ViaSpec
+from trackpad.geometry import (
+    LandingPadSpec,
+    Layer,
+    PadSpec,
+    SegmentSpec,
+    Trackpad,
+    ViaSpec,
+)
 
 if TYPE_CHECKING:
     from trackpad.params import TrackpadParams
@@ -96,6 +103,29 @@ def _make_via_pad(spec: ViaSpec) -> Pad:
     return pad
 
 
+def _make_landing_pad(spec: LandingPadSpec) -> Pad:
+    """A rectangular connection/alignment landing — plain exposed SMD rect pad."""
+    pad = Pad()
+    pad.number = spec.number
+    pad.pad_type = PadType.PT_SMD
+    pad.position = Vector2.from_xy(int(spec.center.x), int(spec.center.y))
+
+    ps = pad.padstack
+    ps.type = PadStackType.PST_NORMAL
+    ps.layers = [BoardLayer.BL_F_Cu]
+
+    front = ps.copper_layer(BoardLayer.BL_F_Cu)
+    assert front is not None
+    front.shape = PadStackShape.PSS_RECTANGLE
+    front.size = Vector2.from_xy(int(spec.size_x), int(spec.size_y))
+
+    # Mask follows the trackpad setting — covered by default, like the triangles.
+    ps.front_outer_layers.solder_mask_mode = (
+        SolderMaskMode.SMM_FROM_DESIGN_RULES if spec.masked else SolderMaskMode.SMM_UNMASKED
+    )
+    return pad
+
+
 def _make_segment(spec: SegmentSpec) -> BoardSegment:
     seg = BoardSegment()
     seg.start = Vector2.from_xy(int(spec.start.x), int(spec.start.y))
@@ -117,6 +147,8 @@ def to_footprint(trackpad: Trackpad, params: TrackpadParams) -> Footprint:
 
     for pad_spec in trackpad.pads:
         fp.add_item(_make_smd_pad(pad_spec))
+    for landing_spec in trackpad.landings:
+        fp.add_item(_make_landing_pad(landing_spec))
     for via_spec in trackpad.vias:
         fp.add_item(_make_via_pad(via_spec))
     for seg_spec in trackpad.segments:

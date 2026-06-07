@@ -6,11 +6,11 @@ No kipy imports here — this module is testable without KiCad.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 
-from trackpad.params import TrackpadParams
-from trackpad.units import Degrees, Nanometers
+from trackpad.params import ConnectionStyle, TrackpadParams
+from trackpad.units import Nanometers
 
 
 class Layer(Enum):
@@ -76,6 +76,28 @@ class SegmentSpec:
 
 
 @dataclass(frozen=True, slots=True)
+class LandingPadSpec:
+    """A rectangular connection/alignment landing on a perimeter electrode.
+
+    Sits on the outer edge of a perimeter triangle (the base lying on the
+    trackpad boundary). `center` is the pad's `(at x y)`; `size_x`/`size_y` are
+    the rectangle dimensions. Shares `number` with its electrode so it lands on
+    the same net. `masked` follows the trackpad's solder-mask setting — covered
+    by default, same as the electrode triangles (a finger-slide surface should
+    not have exposed copper; the net is reached internally, not hand-soldered).
+    """
+
+    number: str
+    pin_name: str
+    electrode: Electrode
+    electrode_index: int
+    center: Point
+    size_x: Nanometers
+    size_y: Nanometers
+    masked: bool
+
+
+@dataclass(frozen=True, slots=True)
 class Trackpad:
     """The full set of items the wizard generates for one trackpad."""
 
@@ -84,6 +106,7 @@ class Trackpad:
     segments: list[SegmentSpec]
     tx_count: int  # number of TX columns (number of `c0..c{tx_count-1}` pad numbers)
     rx_count: int  # number of RX rows (number of `r0..r{rx_count-1}` pad numbers)
+    landings: list[LandingPadSpec] = field(default_factory=list)
 
 
 def _legacy_angle(triangle_angle_param: float) -> float:
@@ -140,6 +163,61 @@ def _triangle_vertices(
     )
 
 
+def _sign(value: int) -> int:
+    return (value > 0) - (value < 0)
+
+
+def _perimeter_landing(
+    number: str,
+    pin_name: str,
+    electrode: Electrode,
+    electrode_index: int,
+    vertices: tuple[Point, Point, Point],
+    style: ConnectionStyle,
+    landing_size: Nanometers,
+    clearance: Nanometers,
+    masked: bool,
+) -> LandingPadSpec:
+    """Build a connection/alignment landing on the outer edge of a perimeter triangle.
+
+    ``vertices[0]`` is the apex (pointing inward, toward the trackpad center);
+    ``vertices[1]``/``vertices[2]`` are the base endpoints lying on the trackpad
+    boundary. For ``EDGE_PAD`` the landing spans the whole base (minus a
+    clearance gap so it doesn't bridge the perpendicular electrode at a corner);
+    for ``CENTER_PAD`` it's a small square at the base midpoint. Either way the
+    landing is pushed inward by half its thickness so its outer edge sits flush
+    with the boundary rather than hanging past it.
+    """
+    apex, base_a, base_b = vertices
+    mid_x = (int(base_a.x) + int(base_b.x)) // 2
+    mid_y = (int(base_a.y) + int(base_b.y)) // 2
+    inward_x = _sign(int(apex.x) - mid_x)
+    inward_y = _sign(int(apex.y) - mid_y)
+
+    size = int(landing_size)
+    half = size // 2
+    if style is ConnectionStyle.EDGE_PAD:
+        if base_a.y == base_b.y:  # horizontal base (TX top/bottom edge)
+            length = abs(int(base_b.x) - int(base_a.x)) - int(clearance)
+            size_x, size_y = max(length, size), size
+        else:  # vertical base (RX left/right edge)
+            length = abs(int(base_b.y) - int(base_a.y)) - int(clearance)
+            size_x, size_y = size, max(length, size)
+    else:  # CENTER_PAD — small square alignment landing
+        size_x = size_y = size
+
+    return LandingPadSpec(
+        number=number,
+        pin_name=pin_name,
+        electrode=electrode,
+        electrode_index=electrode_index,
+        center=Point(Nanometers(mid_x + inward_x * half), Nanometers(mid_y + inward_y * half)),
+        size_x=Nanometers(size_x),
+        size_y=Nanometers(size_y),
+        masked=masked,
+    )
+
+
 def build_trackpad(params: TrackpadParams) -> Trackpad:
     """Translate parameters into geometry specs with explicit triangle vertices.
 
@@ -165,7 +243,9 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
     pads: list[PadSpec] = []
     vias: list[ViaSpec] = []
     segments: list[SegmentSpec] = []
+    landings: list[LandingPadSpec] = []
     masked = params.add_soldermask
+    add_landings = params.connection_style is not ConnectionStyle.APEX_ONLY
 
     # Triangle shape matches KiCad's rect_delta(size_x, 0) at size_x = size_y:
     # the base is TWICE the nominal pad_width (extending across two cell columns),
@@ -202,6 +282,20 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     masked=masked,
                 )
             )
+            if add_landings and row == 0:  # top-edge perimeter triangle
+                landings.append(
+                    _perimeter_landing(
+                        tx_number,
+                        pin_name,
+                        Electrode.TX,
+                        col,
+                        vertices,
+                        params.connection_style,
+                        params.landing_size,
+                        clearance,
+                        masked,
+                    )
+                )
             if params.drill_holes:
                 via_y = Nanometers(y_center + (pad_height // 2 - clearance * 4))
                 via_pos = Point(Nanometers(x), via_y)
@@ -254,6 +348,20 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     masked=masked,
                 )
             )
+            if add_landings and row == 0:  # bottom-edge perimeter triangle
+                landings.append(
+                    _perimeter_landing(
+                        tx_number,
+                        pin_name,
+                        Electrode.TX,
+                        col,
+                        vertices,
+                        params.connection_style,
+                        params.landing_size,
+                        clearance,
+                        masked,
+                    )
+                )
             if params.drill_holes:
                 via_y = Nanometers(y_center - (pad_height // 2 - clearance * 4))
                 via_pos = Point(Nanometers(x), via_y)
@@ -304,6 +412,20 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     masked=masked,
                 )
             )
+            if add_landings and col == 0:  # right-edge perimeter triangle
+                landings.append(
+                    _perimeter_landing(
+                        rx_number,
+                        pin_name,
+                        Electrode.RX,
+                        row,
+                        vertices,
+                        params.connection_style,
+                        params.landing_size,
+                        clearance,
+                        masked,
+                    )
+                )
 
         # Left-loop pads — apex RIGHT
         for col in range(seg_x):
@@ -323,6 +445,20 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
                     masked=masked,
                 )
             )
+            if add_landings and col == 0:  # left-edge perimeter triangle
+                landings.append(
+                    _perimeter_landing(
+                        rx_number,
+                        pin_name,
+                        Electrode.RX,
+                        row,
+                        vertices,
+                        params.connection_style,
+                        params.landing_size,
+                        clearance,
+                        masked,
+                    )
+                )
 
     return Trackpad(
         pads=pads,
@@ -330,4 +466,5 @@ def build_trackpad(params: TrackpadParams) -> Trackpad:
         segments=segments,
         tx_count=seg_x,
         rx_count=seg_y,
+        landings=landings,
     )

@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 
 import trackpad as _trackpad  # applies kipy 0.7.1 workaround
+
 _ = _trackpad
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -67,6 +68,8 @@ class TestGetInfo:
             "add_back_wiring",
             "add_soldermask",
             "triangle_angle",
+            "connection_style",
+            "landing_size",
         }
         assert identifiers == expected
 
