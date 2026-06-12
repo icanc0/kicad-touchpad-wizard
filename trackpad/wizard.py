@@ -6,6 +6,7 @@ The symbol-on-disk path is reported via the wizard description so users can find
 
 from __future__ import annotations
 
+import argparse
 import os
 import sys
 from pathlib import Path
@@ -23,7 +24,7 @@ from kipy.wizards import WizardBase, WizardInfo, WizardMetaInfo, WizardParameter
 from trackpad.footprint import to_footprint
 from trackpad.geometry import build_trackpad
 from trackpad.params import ConnectionStyle, TrackpadParams
-from trackpad.symbol import render_symbol
+from trackpad.symbol import render_symbol, upsert_symbol_into_library_file
 from trackpad.units import mm
 
 IDENTIFIER = "io.github.icanc0.touchpad-wizard"
@@ -48,67 +49,14 @@ def symbol_library_path() -> Path:
     return Path.home() / "Documents" / "KiCad" / "touchpad-wizard.kicad_sym"
 
 
-def _ensure_symbol_library_exists(path: Path) -> None:
-    if path.exists():
-        return
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        '(kicad_symbol_lib (version 20231120) (generator "kicad-touchpad-wizard")\n)\n',
-        encoding="utf-8",
-    )
-
-
-def _upsert_symbol(library_text: str, symbol_block: str, name: str) -> str:
-    """Replace the symbol named `name` in `library_text`, or append it before the close paren."""
-    needle = f'(symbol "{name}"'
-    start = library_text.find(needle)
-    if start != -1:
-        depth = 0
-        i = start
-        while i < len(library_text):
-            c = library_text[i]
-            if c == "(":
-                depth += 1
-            elif c == ")":
-                depth -= 1
-                if depth == 0:
-                    end = i + 1
-                    return library_text[:start] + symbol_block.strip() + library_text[end:]
-            i += 1
-
-    # No existing entry — append before the closing paren of kicad_symbol_lib
-    closing = library_text.rfind(")")
-    if closing == -1:
-        return library_text + "\n" + symbol_block
-    return library_text[:closing] + "  " + symbol_block.strip() + "\n" + library_text[closing:]
-
-
 def write_symbol_library(symbol_file_text: str, symbol_name: str) -> Path:
     """Append (or replace) one symbol in the user's symbol library on disk."""
     path = symbol_library_path()
-    _ensure_symbol_library_exists(path)
-    existing = path.read_text(encoding="utf-8")
-
-    # The single-symbol file produced by render_symbol() wraps the symbol in its
-    # own kicad_symbol_lib. Extract just the (symbol ...) block.
-    block_start = symbol_file_text.find('(symbol "')
-    if block_start == -1:
-        raise ValueError("symbol file has no (symbol ...) block")
-    depth = 0
-    i = block_start
-    while i < len(symbol_file_text):
-        c = symbol_file_text[i]
-        if c == "(":
-            depth += 1
-        elif c == ")":
-            depth -= 1
-            if depth == 0:
-                block = symbol_file_text[block_start : i + 1]
-                merged = _upsert_symbol(existing, block, symbol_name)
-                path.write_text(merged, encoding="utf-8")
-                return path
-        i += 1
-    raise ValueError("unbalanced parentheses in symbol file")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    existing = path.read_text(encoding="utf-8") if path.exists() else None
+    merged = upsert_symbol_into_library_file(existing, symbol_file_text, symbol_name)
+    path.write_text(merged, encoding="utf-8")
+    return path
 
 
 class TrackpadWizard(WizardBase):
@@ -303,19 +251,8 @@ def _parameter_definitions() -> list[WizardParameter]:
     ]
 
 
-def _cli_emit(argv: list[str]) -> int:
-    """Standalone CLI: write .kicad_mod and .kicad_sym to disk.
-
-    Usable without KiCad's wizard system at all. For people who just want files.
-    """
-    import argparse
-
-    from trackpad.kicad_mod import render_footprint
-
-    parser = argparse.ArgumentParser(
-        prog="touchpad-wizard emit",
-        description="Generate a trackpad footprint and matching symbol on disk.",
-    )
+def _add_trackpad_args(parser: argparse.ArgumentParser) -> None:
+    """Shared trackpad parameter flags for the emit/emit-project subcommands."""
     parser.add_argument("--width", type=float, default=50.0, help="width in mm (default 50)")
     parser.add_argument("--height", type=float, default=20.0, help="height in mm (default 20)")
     parser.add_argument("--tx-columns", type=int, default=5, help="TX columns (default 5)")
@@ -353,16 +290,13 @@ def _cli_emit(argv: list[str]) -> int:
         default=1.0,
         help="landing pad size/thickness mm, for edge/center styles (default 1.0)",
     )
-    parser.add_argument(
-        "--footprint", type=Path, required=True, help="output .kicad_mod path"
-    )
-    parser.add_argument("--symbol", type=Path, help="output .kicad_sym path (optional)")
-    args = parser.parse_args(argv)
 
+
+def _params_from_args(args: argparse.Namespace) -> TrackpadParams:
     from trackpad.units import Degrees
     from trackpad.units import mm as nm_from_mm
 
-    params = TrackpadParams(
+    return TrackpadParams(
         width=nm_from_mm(args.width),
         height=nm_from_mm(args.height),
         edge_segments_x=args.tx_columns,
@@ -380,6 +314,27 @@ def _cli_emit(argv: list[str]) -> int:
         connection_style=ConnectionStyle.from_str(args.connection_style),
         landing_size=nm_from_mm(args.landing_size),
     )
+
+
+def _cli_emit(argv: list[str]) -> int:
+    """Standalone CLI: write .kicad_mod and .kicad_sym to disk.
+
+    Usable without KiCad's wizard system at all. For people who just want files.
+    """
+    from trackpad.kicad_mod import render_footprint
+
+    parser = argparse.ArgumentParser(
+        prog="touchpad-wizard emit",
+        description="Generate a trackpad footprint and matching symbol on disk.",
+    )
+    _add_trackpad_args(parser)
+    parser.add_argument(
+        "--footprint", type=Path, required=True, help="output .kicad_mod path"
+    )
+    parser.add_argument("--symbol", type=Path, help="output .kicad_sym path (optional)")
+    args = parser.parse_args(argv)
+
+    params = _params_from_args(args)
     err = params.validate()
     if err is not None:
         print(f"error: {err}", file=sys.stderr)
@@ -399,10 +354,49 @@ def _cli_emit(argv: list[str]) -> int:
     return 0
 
 
+def _cli_emit_project(argv: list[str]) -> int:
+    """One-shot project integration: libraries written AND registered.
+
+    Point it at a KiCad project directory (or any path inside one); after this,
+    placing the generated symbol in the schematic binds to the footprint with
+    no further setup.
+    """
+    from trackpad.project_gen import find_project_dir, generate_into_project
+
+    parser = argparse.ArgumentParser(
+        prog="touchpad-wizard emit-project",
+        description=(
+            "Generate footprint + symbol into a KiCad project and register both "
+            "in the project library tables."
+        ),
+    )
+    _add_trackpad_args(parser)
+    parser.add_argument(
+        "--project",
+        type=Path,
+        required=True,
+        help="KiCad project directory (or any file inside it)",
+    )
+    args = parser.parse_args(argv)
+
+    project_dir = find_project_dir(args.project.resolve())
+    if project_dir is None:
+        print(f"error: no .kicad_pro found at or above {args.project}", file=sys.stderr)
+        return 1
+
+    params = _params_from_args(args)
+    try:
+        result = generate_into_project(project_dir, params)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+
+    print("\n".join(result.summary_lines()))
+    return 0
+
+
 def _cli_emit_circle(argv: list[str]) -> int:
     """Standalone CLI for the circular/wheel trackpad shape."""
-    import argparse
-
     from trackpad.circular import (
         CircularParams,
         build_circular_trackpad,
@@ -449,6 +443,8 @@ def main() -> None:
     argv = sys.argv[1:]
     if argv and argv[0] == "emit":
         sys.exit(_cli_emit(argv[1:]))
+    if argv and argv[0] == "emit-project":
+        sys.exit(_cli_emit_project(argv[1:]))
     if argv and argv[0] == "emit-circle":
         sys.exit(_cli_emit_circle(argv[1:]))
     TrackpadWizard().run()

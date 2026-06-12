@@ -23,9 +23,61 @@ PIN_PITCH_MM = 2.54
 BODY_VERTICAL_PADDING_MM = 2.54
 BODY_WIDTH_MM = 12.7  # 500 mil — comfortable for "TX99" / "RX99" pin labels
 
+EMPTY_LIBRARY = '(kicad_symbol_lib (version 20231120) (generator "kicad-touchpad-wizard")\n)\n'
+
 
 def _esc(s: str) -> str:
     return s.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def extract_symbol_block(symbol_file_text: str) -> str:
+    """Pull the top-level ``(symbol ...)`` block out of a one-symbol .kicad_sym file."""
+    block_start = symbol_file_text.find('(symbol "')
+    if block_start == -1:
+        raise ValueError("symbol file has no (symbol ...) block")
+    depth = 0
+    for i in range(block_start, len(symbol_file_text)):
+        c = symbol_file_text[i]
+        if c == "(":
+            depth += 1
+        elif c == ")":
+            depth -= 1
+            if depth == 0:
+                return symbol_file_text[block_start : i + 1]
+    raise ValueError("unbalanced parentheses in symbol file")
+
+
+def upsert_symbol(library_text: str, symbol_block: str, name: str) -> str:
+    """Replace the symbol named `name` in `library_text`, or append it before the close paren."""
+    needle = f'(symbol "{name}"'
+    start = library_text.find(needle)
+    if start != -1:
+        depth = 0
+        for i in range(start, len(library_text)):
+            c = library_text[i]
+            if c == "(":
+                depth += 1
+            elif c == ")":
+                depth -= 1
+                if depth == 0:
+                    return library_text[:start] + symbol_block.strip() + library_text[i + 1 :]
+
+    # No existing entry — append before the closing paren of kicad_symbol_lib
+    closing = library_text.rfind(")")
+    if closing == -1:
+        return library_text + "\n" + symbol_block
+    return library_text[:closing] + "  " + symbol_block.strip() + "\n" + library_text[closing:]
+
+
+def upsert_symbol_into_library_file(path_text: str | None, symbol_file_text: str, name: str) -> str:
+    """Merge a freshly rendered one-symbol library into existing library text.
+
+    `path_text` is the current content of the target .kicad_sym (None if the
+    file doesn't exist yet). Returns the new file content.
+    """
+    existing = path_text if path_text is not None else EMPTY_LIBRARY
+    block = extract_symbol_block(symbol_file_text)
+    return upsert_symbol(existing, block, name)
 
 
 def render_symbol(trackpad: Trackpad, params: TrackpadParams) -> str:

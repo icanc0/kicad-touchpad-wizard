@@ -14,20 +14,70 @@ Both images above were generated headlessly by the test suite: `python touchpad_
 
 ## What you get
 
-- One footprint (`Trackpad-WxHmm.kicad_mod`) — trapezoidal SMD pads, optional
-  routing vias and traces.
-- One schematic symbol (`Trackpad-WxHmm` in `touchpad-wizard.kicad_sym`) whose
-  pin numbers exactly match the footprint's pad numbers.
-- TX columns numbered `T1, T2, …` and RX rows numbered `R1, R2, …` — no collisions.
+- One footprint (`Trackpad-WxHmm.kicad_mod`) — interlocking triangular SMD
+  electrodes (custom polygon pads), optional routing vias and traces.
+- One schematic symbol (`Trackpad-WxHmm`) whose pin numbers (`c0…`, `r0…`)
+  exactly match the footprint's pad numbers, and whose Footprint property
+  points at the footprint — so symbol → footprint binding is automatic.
+- (Plugin/`emit-project` paths) both libraries registered in the project's
+  library tables under the nickname `Trackpad`.
 
 ## Use it
 
-There are two ways. Pick whichever fits your workflow.
+There are three ways. Pick whichever fits your workflow.
 
-### Option A — Standalone CLI (easiest, works with any KiCad version)
+### Option A — In-KiCad plugin (KiCad 9/10, the complete experience)
+
+A **Generate trackpad** button in the PCB editor toolbar. Click it and a
+dialog with a live preview opens; hit *Generate into project* and the plugin:
+
+1. writes `Trackpad.pretty/Trackpad-<W>x<H>mm.kicad_mod` into your project,
+2. writes/extends `Trackpad.kicad_sym` next to it (symbols accumulate, one
+   per size),
+3. registers both libraries in the project's `fp-lib-table`/`sym-lib-table`
+   under the nickname `Trackpad`, with relocatable `${KIPRJMOD}` paths.
+
+After that the binding is automatic: place the symbol in eeschema, press F8
+(*Update PCB from Schematic*), and the footprint arrives on the board wired to
+the schematic — the generated symbol's Footprint property already points at
+the generated footprint.
+
+Install:
+
+1. Find your KiCad plugin directory:
+   - Linux: `~/.local/share/kicad/<version>/plugins/`
+   - macOS: `~/Library/Application Support/kicad/<version>/plugins/`
+   - Windows: `%APPDATA%\kicad\<version>\plugins\`
+2. Clone (or symlink) this repo into a `touchpad-wizard/` subdirectory there.
+3. KiCad → Preferences → Plugins → check **"Enable KiCad API"**, then restart
+   KiCad. (KiCad writes `kicad_common.json` on shutdown, so flipping the flag
+   from a terminal while KiCad runs gets reverted.)
+4. Open a project → PCB editor → click the **Generate trackpad** toolbar
+   button.
+
+The dialog needs no extra dependencies — it's tkinter, which ships with
+Python. KiCad provisions the plugin venv from `requirements.txt`
+(`kicad-python`, used only to discover the open project's directory; if that
+fails the dialog just asks you to pick the project folder).
+
+Because KiCad reads the project library tables when the project opens, the
+*first* generation into a project ends with: close and reopen the project.
+Subsequent generations reuse the registered libraries — no reopen needed.
+
+### Option B — Standalone CLI (no KiCad required)
+
+One-shot project integration, same result as Option A:
 
 ```bash
-pip install kicad-python   # the only dependency
+pip install kicad-python
+python touchpad_wizard.py emit-project \
+    --project ~/my-project \
+    --width 50 --height 20 --tx-columns 5 --rx-rows 5
+```
+
+Or write bare files anywhere and wire the library tables yourself:
+
+```bash
 python touchpad_wizard.py emit \
     --width 50 --height 20 \
     --tx-columns 5 --rx-rows 5 \
@@ -35,11 +85,8 @@ python touchpad_wizard.py emit \
     --symbol MyProject.kicad_sym
 ```
 
-That writes the footprint to your `.pretty` directory and the symbol to a
-`.kicad_sym` library. Add both to your project's library tables and the
-schematic-to-PCB binding works.
-
-Run `python touchpad_wizard.py emit --help` for the full parameter list.
+Run `python touchpad_wizard.py emit-project --help` for the full parameter
+list (clearance, vias, wiring, connection landings, …).
 
 #### Perimeter connection landings (`--connection-style`)
 
@@ -67,36 +114,30 @@ Side-by-side renders of every style live in
 [`artifacts/connection-styles/`](artifacts/connection-styles/) — regenerate them
 with `python scripts/regen_connection_gallery.py`.
 
-### Option B — In-KiCad wizard (KiCad 10.1+ / 11)
+### Option C — Native footprint wizard (KiCad 10.1+ / 11, future)
+
+The same `plugin.json` also declares a `footprint_wizard`-scoped action that
+plugs into KiCad's native *New Footprint Using Footprint Wizard* flow via the
+IPC API.
 
 > [!IMPORTANT]
-> **This does not work on KiCad 10.0.x.** Verified against the KiCad source: the
-> `FOOTPRINT_WIZARD` plugin-action scope was added on master after the 10.0.1
-> tag (commit on `master`, missing from `10.0.1` tag at
-> `include/api/plugin_action_scope.h`). KiCad 10.0.1 detects our plugin and
-> even provisions the Python venv, but maps the `footprint_wizard` scope to
-> `INVALID` and never surfaces the wizard in the UI. Use Option A on K10.0.x.
+> **This scope does not exist on KiCad 10.0.x.** Verified against the KiCad
+> source: the `FOOTPRINT_WIZARD` plugin-action scope was added on master after
+> the 10.0.1 tag (missing from `include/api/plugin_action_scope.h` at the
+> `10.0.1` tag). KiCad 10.0.1 detects the plugin and provisions the venv, but
+> maps the scope to `INVALID` and never surfaces it. Use Option A — the
+> toolbar action — on stable KiCad; it provides the same generator plus the
+> library-table wiring the native wizard can't do.
 
-1. Find your KiCad plugin directory:
-   - Linux: `~/.local/share/kicad/<version>/plugins/`
-   - macOS: `~/Library/Application Support/kicad/<version>/plugins/`
-   - Windows: `%APPDATA%\kicad\<version>\plugins\`
-2. Symlink (or clone) this repo into a `touchpad-wizard/` subdirectory there.
-3. In KiCad → Preferences → KiCad → Plugins → check **"Enable KiCad API"**.
-   Close and re-open KiCad (it overwrites `kicad_common.json` on shutdown,
-   so flipping the flag from a terminal while KiCad is running will be reverted).
-4. Open the footprint editor → File → New Footprint Using Footprint Wizard →
-   look for "Trackpad" in the list.
+On a nightly/11 build: footprint editor → File → New Footprint Using Footprint
+Wizard → "Trackpad". The footprint lands in the editor; the matching symbol is
+appended to `~/Documents/KiCad/touchpad-wizard.kicad_sym` (override with
+`KICAD_TOUCHPAD_WIZARD_SYM_LIB`) since the wizard pipeline itself can only
+return a footprint.
 
 KiCad reads `requirements.txt` (not `pyproject.toml`) to provision the plugin's
 Python venv, so the file `requirements.txt` at the repo root is what's installed
 into the venv at `~/.cache/kicad/<version>/python-environments/<plugin-id>/`.
-
-Adjust parameters with live preview. On generate, the footprint lands in the
-editor and the matching symbol is appended to
-`~/Documents/KiCad/touchpad-wizard.kicad_sym` (override with
-`KICAD_TOUCHPAD_WIZARD_SYM_LIB`). Add that file once as a global symbol library
-and every future trackpad you generate slots into it automatically.
 
 ## How it stays correct
 

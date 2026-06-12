@@ -8,9 +8,19 @@
   },
   "actions": [
     {
+      "identifier": "generate-trackpad-project",
+      "name": "Generate trackpad",
+      "description": "Trackpad footprint + bound schematic symbol, written into the open project and registered in its library tables.",
+      "show-button": true,
+      "scopes": ["pcb"],
+      "entrypoint": "trackpad_action.py",
+      "icons-light": ["docs/icon-24.png", "docs/icon-48.png"],
+      "icons-dark": ["docs/icon-24.png", "docs/icon-48.png"]
+    },
+    {
       "identifier": "generate-trackpad",
       "name": "Trackpad",
-      "description": "Capacitive trackpad footprint generator with matching schematic symbol.",
+      "description": "Capacitive trackpad footprint generator with matching schematic symbol (footprint wizard, KiCad 10.1+).",
       "show-button": true,
       "scopes": ["footprint_wizard"],
       "entrypoint": "touchpad_wizard.py"

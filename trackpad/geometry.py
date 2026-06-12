@@ -109,18 +109,6 @@ class Trackpad:
     landings: list[LandingPadSpec] = field(default_factory=list)
 
 
-def _legacy_angle(triangle_angle_param: float) -> float:
-    """Map the wizard's triangle_angle parameter to the actual rendered angle.
-
-    The original SWIG code called `EDA_ANGLE(rotation * 10)`, which treated the
-    argument as degrees directly. The intended 135° therefore wrapped to
-    1350 mod 360 = 270°, and that is what the user's known-good reference
-    pattern depends on. We preserve that mapping so default param 135 → 270°
-    keeps producing the visually-correct trackpad.
-    """
-    return (triangle_angle_param * 10.0) % 360.0
-
-
 class _ApexDirection(Enum):
     """Where the triangle's apex points, in board-frame cardinal directions."""
 
