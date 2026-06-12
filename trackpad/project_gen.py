@@ -72,32 +72,41 @@ class GeneratedProject:
         return lines
 
 
+def _write_libraries(dest_dir: Path, params: TrackpadParams) -> tuple[Path, Path, str, Trackpad]:
+    """Write the .pretty footprint and upsert the symbol library under `dest_dir`."""
+    err = params.validate()
+    if err is not None:
+        raise ValueError(err)
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    name = footprint_name(params)
+    trackpad = build_trackpad(params)
+
+    pretty = dest_dir / PRETTY_DIR
+    pretty.mkdir(exist_ok=True)
+    footprint_path = pretty / f"{name}.kicad_mod"
+    footprint_path.write_text(render_footprint(trackpad, params), encoding="utf-8")
+
+    symbol_lib_path = dest_dir / SYMBOL_LIB_FILE
+    existing = (
+        symbol_lib_path.read_text(encoding="utf-8") if symbol_lib_path.exists() else None
+    )
+    merged = upsert_symbol_into_library_file(existing, render_symbol(trackpad, params), name)
+    symbol_lib_path.write_text(merged, encoding="utf-8")
+
+    return footprint_path, symbol_lib_path, name, trackpad
+
+
 def generate_into_project(project_dir: Path, params: TrackpadParams) -> GeneratedProject:
     """Write footprint + symbol libraries into `project_dir` and register them.
 
     `project_dir` must be the directory containing the ``.kicad_pro`` file.
     Raises ValueError on invalid params, OSError on filesystem problems.
     """
-    err = params.validate()
-    if err is not None:
-        raise ValueError(err)
     if not project_dir.is_dir():
         raise ValueError(f"not a directory: {project_dir}")
 
-    name = footprint_name(params)
-    trackpad = build_trackpad(params)
-
-    pretty = project_dir / PRETTY_DIR
-    pretty.mkdir(exist_ok=True)
-    footprint_path = pretty / f"{name}.kicad_mod"
-    footprint_path.write_text(render_footprint(trackpad, params), encoding="utf-8")
-
-    symbol_lib_path = project_dir / SYMBOL_LIB_FILE
-    existing = (
-        symbol_lib_path.read_text(encoding="utf-8") if symbol_lib_path.exists() else None
-    )
-    merged = upsert_symbol_into_library_file(existing, render_symbol(trackpad, params), name)
-    symbol_lib_path.write_text(merged, encoding="utf-8")
+    footprint_path, symbol_lib_path, name, trackpad = _write_libraries(project_dir, params)
 
     fp_changed = register_library(
         project_dir,
@@ -122,6 +131,84 @@ def generate_into_project(project_dir: Path, params: TrackpadParams) -> Generate
         symbol_name=name,
         fp_table_created_or_updated=fp_changed,
         sym_table_created_or_updated=sym_changed,
+        trackpad=trackpad,
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class GeneratedLibrary:
+    """Result of generating into a standalone (usually global) library."""
+
+    lib_dir: Path
+    footprint_path: Path
+    symbol_lib_path: Path
+    footprint_lib_id: str
+    symbol_name: str
+    registered_globally: bool
+    global_table_dir: Path | None
+    tables_changed: bool
+    trackpad: Trackpad
+
+    def summary_lines(self) -> list[str]:
+        lines = [
+            f"Footprint:  {self.footprint_path}",
+            f"Symbol:     {self.symbol_name!r} in {self.symbol_lib_path}",
+        ]
+        if self.registered_globally:
+            lines.append(
+                f"Registered 'Trackpad' in KiCad's global library tables ({self.global_table_dir})"
+            )
+            if self.tables_changed:
+                lines.append("Restart KiCad to pick up the new global libraries (first time only).")
+        else:
+            lines.append("")
+            lines.append("Global library tables not found — add the libraries manually via")
+            lines.append("Preferences > Manage Symbol/Footprint Libraries.")
+        lines.append("")
+        lines.append(f"Then: place symbol {self.footprint_lib_id!r} in any schematic")
+        lines.append("and use Update PCB from Schematic (F8).")
+        return lines
+
+
+def generate_into_library(lib_dir: Path, params: TrackpadParams) -> GeneratedLibrary:
+    """Write the libraries to a standalone directory and register them globally.
+
+    Unlike :func:`generate_into_project` the destination is not tied to any
+    project: the libraries land in `lib_dir` and are registered in KiCad's
+    *global* fp-lib-table / sym-lib-table (absolute URIs), making the trackpad
+    available to every project on this machine.
+    """
+    from trackpad.libtable import find_global_table_dir, register_library_at
+
+    footprint_path, symbol_lib_path, name, trackpad = _write_libraries(lib_dir, params)
+
+    table_dir = find_global_table_dir()
+    fp_changed = sym_changed = False
+    if table_dir is not None:
+        fp_changed = register_library_at(
+            table_dir / TableKind.FOOTPRINT.filename,
+            TableKind.FOOTPRINT,
+            LIB_NICKNAME,
+            str(lib_dir / PRETTY_DIR),
+            "Generated trackpad footprints (kicad-touchpad-wizard)",
+        )
+        sym_changed = register_library_at(
+            table_dir / TableKind.SYMBOL.filename,
+            TableKind.SYMBOL,
+            LIB_NICKNAME,
+            str(lib_dir / SYMBOL_LIB_FILE),
+            "Generated trackpad symbols (kicad-touchpad-wizard)",
+        )
+
+    return GeneratedLibrary(
+        lib_dir=lib_dir,
+        footprint_path=footprint_path,
+        symbol_lib_path=symbol_lib_path,
+        footprint_lib_id=f"{LIB_NICKNAME}:{name}",
+        symbol_name=name,
+        registered_globally=table_dir is not None,
+        global_table_dir=table_dir,
+        tables_changed=fp_changed or sym_changed,
         trackpad=trackpad,
     )
 

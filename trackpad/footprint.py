@@ -135,11 +135,12 @@ def _make_segment(spec: SegmentSpec) -> BoardSegment:
     return seg
 
 
-def to_footprint(trackpad: Trackpad, params: TrackpadParams) -> Footprint:
-    """Build the Footprint proto from typed geometry specs."""
-    _ = common_types  # imported for namespace effect; protos resolve lazily
-    fp = Footprint()
+def populate_footprint(fp: Footprint, trackpad: Trackpad, params: TrackpadParams) -> None:
+    """Fill a Footprint (standalone or a FootprintInstance.definition) with the trackpad.
 
+    Shared by the wizard path (standalone Footprint returned to KiCad) and the
+    board-placement path (definition embedded in a FootprintInstance).
+    """
     lib_id = LibraryIdentifier()
     lib_id.library = "Trackpad"
     lib_id.name = f"Trackpad-{params.width / 1_000_000:g}x{params.height / 1_000_000:g}mm"
@@ -154,4 +155,10 @@ def to_footprint(trackpad: Trackpad, params: TrackpadParams) -> Footprint:
     for seg_spec in trackpad.segments:
         fp.add_item(_make_segment(seg_spec))
 
+
+def to_footprint(trackpad: Trackpad, params: TrackpadParams) -> Footprint:
+    """Build the Footprint proto from typed geometry specs."""
+    _ = common_types  # imported for namespace effect; protos resolve lazily
+    fp = Footprint()
+    populate_footprint(fp, trackpad, params)
     return fp

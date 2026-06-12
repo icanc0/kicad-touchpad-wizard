@@ -169,3 +169,75 @@ class TestFootprintName:
 
         params = replace(TrackpadParams.defaults(), width=mm(50.5), height=mm(20))
         assert footprint_name(params) == "Trackpad-50.5x20mm"
+
+
+class TestGenerateIntoLibrary:
+    def test_writes_libs_and_registers_in_global_tables(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        fake_config = tmp_path / "kicad-config"
+        fake_config.mkdir()
+        monkeypatch.setenv("KICAD_CONFIG_HOME", str(fake_config))
+
+        from trackpad.project_gen import generate_into_library
+
+        lib_dir = tmp_path / "libs"
+        result = generate_into_library(lib_dir, TrackpadParams.defaults())
+
+        assert result.footprint_path.exists()
+        assert result.symbol_lib_path.exists()
+        assert result.registered_globally
+        assert result.tables_changed
+        fp_table = (fake_config / "fp-lib-table").read_text(encoding="utf-8")
+        # global URIs must be absolute, not ${KIPRJMOD}
+        assert str(lib_dir / "Trackpad.pretty") in fp_table
+        assert "KIPRJMOD" not in fp_table
+        assert (fake_config / "sym-lib-table").exists()
+
+    def test_no_global_tables_found_degrades_gracefully(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setenv("KICAD_CONFIG_HOME", str(tmp_path / "missing"))
+
+        from trackpad.project_gen import generate_into_library
+
+        result = generate_into_library(tmp_path / "libs", TrackpadParams.defaults())
+        assert result.footprint_path.exists()
+        assert not result.registered_globally
+        assert any("manually" in line for line in result.summary_lines())
+
+    def test_idempotent_registration(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        fake_config = tmp_path / "kicad-config"
+        fake_config.mkdir()
+        monkeypatch.setenv("KICAD_CONFIG_HOME", str(fake_config))
+
+        from trackpad.project_gen import generate_into_library
+
+        generate_into_library(tmp_path / "libs", TrackpadParams.defaults())
+        second = generate_into_library(tmp_path / "libs", TrackpadParams.defaults())
+        assert not second.tables_changed
+
+
+class TestFindGlobalTableDir:
+    def test_env_override(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from trackpad.libtable import find_global_table_dir
+
+        monkeypatch.setenv("KICAD_CONFIG_HOME", str(tmp_path))
+        assert find_global_table_dir() == tmp_path
+
+    def test_picks_highest_initialized_version(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        from trackpad import libtable
+
+        monkeypatch.delenv("KICAD_CONFIG_HOME", raising=False)
+        base = tmp_path / ".config" / "kicad"
+        for version, initialized in (("9.0", True), ("10.0", True), ("12.0", False)):
+            d = base / version
+            d.mkdir(parents=True)
+            if initialized:
+                (d / "kicad_common.json").write_text("{}", encoding="utf-8")
+        monkeypatch.setattr(libtable.Path, "home", classmethod(lambda cls: tmp_path))
+        assert libtable.find_global_table_dir() == base / "10.0"

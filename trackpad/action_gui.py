@@ -24,7 +24,7 @@ from tkinter import filedialog, messagebox, ttk
 
 from trackpad.geometry import Layer, Trackpad, build_trackpad
 from trackpad.params import ConnectionStyle, TrackpadParams
-from trackpad.project_gen import generate_into_project
+from trackpad.project_gen import generate_into_library, generate_into_project
 from trackpad.units import Degrees, mm
 
 # pcbnew-ish dark theme
@@ -237,12 +237,23 @@ class _ParamForm:
         )
 
 
-class TrackpadDialog:
-    """Main window: parameter form, live preview, generate-into-project."""
+DEFAULT_GLOBAL_LIB_DIR = Path.home() / "Documents" / "KiCad" / "trackpad-lib"
 
-    def __init__(self, root: tk.Tk, project_dir: Path | None) -> None:
+PlaceCallback = Callable[[TrackpadParams], str]
+
+
+class TrackpadDialog:
+    """Main window: parameter form, live preview, destination choice, generate."""
+
+    def __init__(
+        self,
+        root: tk.Tk,
+        project_dir: Path | None,
+        place: PlaceCallback | None = None,
+    ) -> None:
         self._root = root
         self._project_dir = project_dir
+        self._place = place
         root.title("Trackpad generator")
         root.resizable(False, False)
 
@@ -268,23 +279,71 @@ class TrackpadDialog:
         self._status = ttk.Label(right, text="", foreground="#B33", wraplength=_PREVIEW_W)
         self._status.pack(anchor="w", pady=(4, 0))
 
-        project_row = ttk.Frame(right)
-        project_row.pack(fill="x", pady=(8, 0))
-        ttk.Label(project_row, text="Project:").pack(side="left")
+        # -- destination ------------------------------------------------------
+        dest = ttk.LabelFrame(right, text="Library destination")
+        dest.pack(fill="x", pady=(8, 0))
+        self._dest = tk.StringVar(value="project" if project_dir else "global")
+        self._dest.trace_add("write", lambda *_: self._dest_changed())
+
+        ttk.Radiobutton(
+            dest, text="Project library (registered in this project's lib tables)",
+            variable=self._dest, value="project",
+        ).grid(row=0, column=0, columnspan=2, sticky="w", padx=6)
+        project_row = ttk.Frame(dest)
+        project_row.grid(row=1, column=0, columnspan=2, sticky="ew", padx=(24, 6))
         self._project_label = ttk.Label(
             project_row, text=str(project_dir) if project_dir else "(choose…)"
         )
-        self._project_label.pack(side="left", padx=4)
+        self._project_label.pack(side="left")
         ttk.Button(project_row, text="Browse…", command=self._pick_project).pack(side="right")
 
-        self._generate_btn = ttk.Button(right, text="Generate into project", command=self._generate)
+        ttk.Radiobutton(
+            dest, text="Global library (all projects on this machine)",
+            variable=self._dest, value="global",
+        ).grid(row=2, column=0, columnspan=2, sticky="w", padx=6)
+        global_row = ttk.Frame(dest)
+        global_row.grid(row=3, column=0, columnspan=2, sticky="ew", padx=(24, 6))
+        self._global_dir = tk.StringVar(value=str(DEFAULT_GLOBAL_LIB_DIR))
+        ttk.Entry(global_row, textvariable=self._global_dir, width=44).pack(
+            side="left", fill="x", expand=True
+        )
+        ttk.Button(global_row, text="Browse…", command=self._pick_global_dir).pack(side="right")
+
+        self._adhoc_radio = ttk.Radiobutton(
+            dest, text="No library — just place on the board (quick & dirty)",
+            variable=self._dest, value="none",
+        )
+        self._adhoc_radio.grid(row=4, column=0, columnspan=2, sticky="w", padx=6)
+        dest.columnconfigure(0, weight=1)
+
+        # -- board placement --------------------------------------------------
+        self._place_now = tk.BooleanVar(value=place is not None)
+        self._place_check = ttk.Checkbutton(
+            right, text="Also place the footprint on the open board now",
+            variable=self._place_now,
+        )
+        self._place_check.pack(anchor="w", pady=(6, 0))
+        if place is None:
+            self._adhoc_radio.configure(state="disabled")
+            self._place_check.configure(state="disabled")
+            self._place_now.set(False)
+
+        self._generate_btn = ttk.Button(right, text="Generate", command=self._generate)
         self._generate_btn.pack(fill="x", pady=(8, 0))
 
-        self._summary = tk.Text(right, height=9, width=56, state="disabled", relief="flat")
+        self._summary = tk.Text(right, height=10, width=56, state="disabled", relief="flat")
         self._summary.pack(fill="x", pady=(8, 0))
 
         self._redraw_pending = False
         self._schedule_redraw()
+
+    def _dest_changed(self) -> None:
+        if self._dest.get() == "none" and self._place is not None:
+            # board-only mode IS placement; force the checkbox on
+            self._place_now.set(True)
+            self._place_check.configure(state="disabled")
+        elif self._place is not None:
+            self._place_check.configure(state="normal")
 
     # -- preview ------------------------------------------------------------
 
@@ -336,27 +395,54 @@ class TrackpadDialog:
         if chosen:
             self._project_dir = Path(chosen)
             self._project_label.configure(text=chosen)
+            self._dest.set("project")
 
-    def _generate(self) -> None:
-        if self._project_dir is None:
-            self._pick_project()
+    def _pick_global_dir(self) -> None:
+        chosen = filedialog.askdirectory(
+            title="Directory for the global trackpad library", initialdir=self._global_dir.get()
+        )
+        if chosen:
+            self._global_dir.set(chosen)
+            self._dest.set("global")
+
+    def _generate_libraries(self, params: TrackpadParams) -> list[str]:
+        """Run the selected library destination. Returns summary lines."""
+        dest = self._dest.get()
+        if dest == "project":
             if self._project_dir is None:
-                return
-        if not any(self._project_dir.glob("*.kicad_pro")):
-            ok = messagebox.askyesno(
+                self._pick_project()
+                if self._project_dir is None:
+                    raise ValueError("no project directory chosen")
+            if not any(self._project_dir.glob("*.kicad_pro")) and not messagebox.askyesno(
                 "No .kicad_pro here",
                 f"{self._project_dir} does not contain a .kicad_pro file.\n"
                 "Generate the libraries there anyway?",
-            )
-            if not ok:
-                return
+            ):
+                raise ValueError("cancelled")
+            return generate_into_project(self._project_dir, params).summary_lines()
+        if dest == "global":
+            return generate_into_library(Path(self._global_dir.get()), params).summary_lines()
+        return ["No library written (board-only mode)."]
+
+    def _generate(self) -> None:
         try:
             params = self._form.current_params()
-            result = generate_into_project(self._project_dir, params)
-        except (ValueError, OSError) as exc:
+            lines = self._generate_libraries(params)
+        except ValueError as exc:
+            if str(exc) != "cancelled":
+                messagebox.showerror("Trackpad generator", str(exc))
+            return
+        except OSError as exc:
             messagebox.showerror("Trackpad generator", str(exc))
             return
-        self._show_summary("\n".join(result.summary_lines()))
+
+        if self._place is not None and self._place_now.get():
+            try:
+                lines = [self._place(params), "", *lines]
+            except Exception as exc:  # noqa: BLE001 — IPC errors must reach the user
+                lines = [f"Board placement failed: {exc}", "", *lines]
+
+        self._show_summary("\n".join(lines))
 
     def _show_summary(self, text: str) -> None:
         self._summary.configure(state="normal")
@@ -365,9 +451,9 @@ class TrackpadDialog:
         self._summary.configure(state="disabled")
 
 
-def run_dialog(project_dir: Path | None) -> int:
+def run_dialog(project_dir: Path | None, place: PlaceCallback | None = None) -> int:
     root = tk.Tk()
-    TrackpadDialog(root, project_dir)
+    TrackpadDialog(root, project_dir, place)
     root.mainloop()
     return 0
 

@@ -57,18 +57,51 @@ def upsert_lib(table_text: str, kind: TableKind, nickname: str, uri: str, descri
     return table_text[:closing] + _lib_entry(nickname, uri, description) + table_text[closing:]
 
 
-def register_library(
-    project_dir: Path, kind: TableKind, nickname: str, uri: str, description: str
+def register_library_at(
+    table_path: Path, kind: TableKind, nickname: str, uri: str, description: str
 ) -> bool:
-    """Ensure the project's lib table registers `nickname` -> `uri`.
+    """Ensure the lib table at `table_path` registers `nickname` -> `uri`.
 
-    Creates the table file if the project doesn't have one yet. Returns True if
-    the file was modified (False means the entry was already present).
+    Creates the table file if it doesn't exist. Returns True if the file was
+    modified (False means the entry was already present).
     """
-    table_path = project_dir / kind.filename
     text = table_path.read_text(encoding="utf-8") if table_path.exists() else _empty_table(kind)
     updated = upsert_lib(text, kind, nickname, uri, description)
     if updated == text and table_path.exists():
         return False
     table_path.write_text(updated, encoding="utf-8")
     return True
+
+
+def register_library(
+    project_dir: Path, kind: TableKind, nickname: str, uri: str, description: str
+) -> bool:
+    """Ensure the project's lib table registers `nickname` -> `uri`."""
+    return register_library_at(project_dir / kind.filename, kind, nickname, uri, description)
+
+
+def find_global_table_dir() -> Path | None:
+    """Locate KiCad's per-user settings directory holding the global lib tables.
+
+    Honors KICAD_CONFIG_HOME; otherwise picks the highest-versioned
+    ``~/.config/kicad/<major.minor>/`` that has been initialized by KiCad.
+    """
+    import os
+    import re
+
+    override = os.environ.get("KICAD_CONFIG_HOME")
+    if override:
+        path = Path(override)
+        return path if path.is_dir() else None
+
+    base = Path.home() / ".config" / "kicad"
+    if not base.is_dir():
+        return None
+    versions = [
+        d for d in base.iterdir() if d.is_dir() and re.fullmatch(r"\d+\.\d+", d.name)
+    ]
+    initialized = [d for d in versions if (d / "kicad_common.json").exists()]
+    candidates = initialized or versions
+    if not candidates:
+        return None
+    return max(candidates, key=lambda d: tuple(int(x) for x in d.name.split(".")))

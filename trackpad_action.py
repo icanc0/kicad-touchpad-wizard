@@ -63,8 +63,30 @@ def _project_dir_from_kicad() -> Path | None:
     return None
 
 
+def _place_callback():
+    """Build a place-on-board callback if a board is reachable, else None.
+
+    The kipy Board handle is resolved once here; the callback then only does
+    the create_items round trip when the user generates with placement on.
+    """
+    try:
+        from kipy import KiCad
+
+        board = KiCad().get_board()
+    except Exception:  # noqa: BLE001 — no board (e.g. launched from eeschema)
+        return None
+
+    from trackpad.board_place import place_on_board
+    from trackpad.params import TrackpadParams
+
+    def place(params: TrackpadParams) -> str:
+        return place_on_board(board, params)
+
+    return place
+
+
 def main() -> int:
-    return run_dialog(_project_dir_from_kicad())
+    return run_dialog(_project_dir_from_kicad(), _place_callback())
 
 
 if __name__ == "__main__":

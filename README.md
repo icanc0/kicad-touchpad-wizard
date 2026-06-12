@@ -29,8 +29,22 @@ There are three ways. Pick whichever fits your workflow.
 ### Option A — In-KiCad plugin (KiCad 9/10, the complete experience)
 
 A **Generate trackpad** button (red-triangles icon) in the toolbars of **both
-the schematic editor and the PCB editor**. The intended flow is symbol-first,
-the way parts normally enter a design:
+the schematic editor and the PCB editor**. The dialog offers three library
+destinations plus live board placement:
+
+- **Project library** *(default)* — written into the open project, registered
+  in its lib tables. Maintainable; travels with the project's git repo.
+- **Global library** — written to a directory of your choice (default
+  `~/Documents/KiCad/trackpad-lib/`) and registered in KiCad's *global*
+  library tables, available to every project on the machine.
+- **No library (board-only)** — nothing written to disk; quick & dirty.
+- **"Place on the board now"** — when launched from the PCB editor, the
+  generated footprint additionally materializes on the open board immediately
+  (single undo step). Works with any of the three destinations; the placed
+  instance carries the `Trackpad:<name>` library id, so it stays consistent
+  with the written library.
+
+The intended flow is symbol-first, the way parts normally enter a design:
 
 1. In the **schematic editor**, click **Generate trackpad**. A dialog with a
    live preview opens; tune size/electrodes; hit *Generate into project*.
