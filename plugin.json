@@ -10,9 +10,9 @@
     {
       "identifier": "generate-trackpad-project",
       "name": "Generate trackpad",
-      "description": "Trackpad footprint + bound schematic symbol, written into the open project and registered in its library tables.",
+      "description": "Trackpad symbol + bound footprint, written into the open project and registered in its library tables. Symbol-first: generate, place the symbol in the schematic, then Update PCB from Schematic.",
       "show-button": true,
-      "scopes": ["pcb"],
+      "scopes": ["schematic", "pcb"],
       "entrypoint": "trackpad_action.py",
       "icons-light": ["docs/icon-24.png", "docs/icon-48.png"],
       "icons-dark": ["docs/icon-24.png", "docs/icon-48.png"]

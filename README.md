@@ -28,19 +28,23 @@ There are three ways. Pick whichever fits your workflow.
 
 ### Option A — In-KiCad plugin (KiCad 9/10, the complete experience)
 
-A **Generate trackpad** button in the PCB editor toolbar. Click it and a
-dialog with a live preview opens; hit *Generate into project* and the plugin:
+A **Generate trackpad** button (red-triangles icon) in the toolbars of **both
+the schematic editor and the PCB editor**. The intended flow is symbol-first,
+the way parts normally enter a design:
 
-1. writes `Trackpad.pretty/Trackpad-<W>x<H>mm.kicad_mod` into your project,
-2. writes/extends `Trackpad.kicad_sym` next to it (symbols accumulate, one
-   per size),
-3. registers both libraries in the project's `fp-lib-table`/`sym-lib-table`
-   under the nickname `Trackpad`, with relocatable `${KIPRJMOD}` paths.
-
-After that the binding is automatic: place the symbol in eeschema, press F8
-(*Update PCB from Schematic*), and the footprint arrives on the board wired to
-the schematic — the generated symbol's Footprint property already points at
-the generated footprint.
+1. In the **schematic editor**, click **Generate trackpad**. A dialog with a
+   live preview opens; tune size/electrodes; hit *Generate into project*.
+   The plugin writes `Trackpad.pretty/Trackpad-<W>x<H>mm.kicad_mod` and
+   `Trackpad.kicad_sym` into the project and registers both in the project's
+   `fp-lib-table`/`sym-lib-table` (nickname `Trackpad`, relocatable
+   `${KIPRJMOD}` paths).
+2. Close and reopen the project (first generation only — KiCad reads library
+   tables at project open).
+3. Place the symbol: press `A`, pick `Trackpad → Trackpad-<W>x<H>mm`, wire
+   the `TX*`/`RX*` pins to your touch controller.
+4. Press **F8** (*Update PCB from Schematic*). The footprint arrives on the
+   board already bound — the generated symbol's Footprint property points at
+   the generated footprint, so there is nothing to assign by hand.
 
 Install:
 
@@ -52,17 +56,18 @@ Install:
 3. KiCad → Preferences → Plugins → check **"Enable KiCad API"**, then restart
    KiCad. (KiCad writes `kicad_common.json` on shutdown, so flipping the flag
    from a terminal while KiCad runs gets reverted.)
-4. Open a project → PCB editor → click the **Generate trackpad** toolbar
-   button.
+4. Open a project → schematic (or PCB) editor → click **Generate trackpad**.
+
+> [!TIP]
+> Plugin buttons sit at the far right end of the top toolbar. In a narrow
+> window the toolbar collapses its tail into a small **`▾` overflow chevron**
+> at the right edge — if you don't see the button, click that chevron or
+> widen the window. (Tiling-WM users: this is you.)
 
 The dialog needs no extra dependencies — it's tkinter, which ships with
 Python. KiCad provisions the plugin venv from `requirements.txt`
 (`kicad-python`, used only to discover the open project's directory; if that
 fails the dialog just asks you to pick the project folder).
-
-Because KiCad reads the project library tables when the project opens, the
-*first* generation into a project ends with: close and reopen the project.
-Subsequent generations reuse the registered libraries — no reopen needed.
 
 ### Option B — Standalone CLI (no KiCad required)
 
