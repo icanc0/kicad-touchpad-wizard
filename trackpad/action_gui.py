@@ -32,11 +32,51 @@ _BG = "#001017"
 _FCU = "#C83434"
 _BCU = "#4D7FC4"
 _HOLE = "#11181F"
-_OUTLINE = "#666E76"
+_OUTLINE = "#3A4148"
 
 _PREVIEW_W = 460
 _PREVIEW_H = 300
 _MARGIN = 16
+
+# Matches sv-ttk's dark palette for the widgets it can't theme (tk.Text, Canvas)
+_CARD_BG = "#1C1C1C"
+_CARD_FG = "#FAFAFA"
+
+
+def apply_theme(root: tk.Tk) -> bool:
+    """Make tkinter not look like 1996. Returns True if the modern theme loaded.
+
+    Uses sv-ttk (pure-Python Sun Valley theme) when available — it is in
+    requirements.txt so KiCad's plugin venv installs it automatically — and
+    falls back to ttk's 'clam' so the stdlib-only path still avoids Motif.
+    Also fixes font sizing on HiDPI displays.
+    """
+    try:
+        dpi = root.winfo_fpixels("1i")
+        if dpi > 100:
+            root.tk.call("tk", "scaling", dpi / 72.0)
+    except tk.TclError:
+        pass
+
+    from tkinter import font
+
+    for name in ("TkDefaultFont", "TkTextFont", "TkMenuFont", "TkHeadingFont"):
+        try:
+            f = font.nametofont(name)
+            if f.cget("size") < 10:
+                f.configure(size=10)
+        except tk.TclError:
+            continue
+
+    try:
+        import sv_ttk  # type: ignore[import-not-found]
+    except ImportError:
+        style = ttk.Style(root)
+        if "clam" in style.theme_names():
+            style.theme_use("clam")
+        return False
+    sv_ttk.set_theme("dark")
+    return True
 
 
 @dataclass(frozen=True, slots=True)
@@ -126,18 +166,18 @@ class _ParamForm:
         self.back_wiring = tk.BooleanVar(value=True)
         self.soldermask = tk.BooleanVar(value=True)
 
-        size = ttk.LabelFrame(parent, text="Size")
+        size = ttk.LabelFrame(parent, text="Size", padding=(4, 4))
         size.pack(fill="x", padx=8, pady=(8, 4))
         self._spin(size, "Width (mm)", self.width_mm, 0, 5, 300, 5)
         self._spin(size, "Height (mm)", self.height_mm, 1, 5, 300, 5)
 
-        grid = ttk.LabelFrame(parent, text="Electrodes")
+        grid = ttk.LabelFrame(parent, text="Electrodes", padding=(4, 4))
         grid.pack(fill="x", padx=8, pady=4)
         self._spin(grid, "TX columns", self.tx_columns, 0, 4, 64, 1)
         self._spin(grid, "RX rows", self.rx_rows, 1, 4, 64, 1)
         self._spin(grid, "Clearance (mm)", self.clearance_mm, 2, 0.05, 2, 0.05)
 
-        conn = ttk.LabelFrame(parent, text="Edge connection")
+        conn = ttk.LabelFrame(parent, text="Edge connection", padding=(4, 4))
         conn.pack(fill="x", padx=8, pady=4)
         ttk.Label(conn, text="Style").grid(row=0, column=0, sticky="w", padx=6, pady=2)
         style_box = ttk.Combobox(
@@ -151,7 +191,7 @@ class _ParamForm:
         self._landing_spin = self._spin(conn, "Landing (mm)", self.landing_mm, 1, 0.2, 5, 0.1)
         conn.columnconfigure(1, weight=1)
 
-        opts = ttk.LabelFrame(parent, text="Options")
+        opts = ttk.LabelFrame(parent, text="Options", padding=(4, 4))
         opts.pack(fill="x", padx=8, pady=4)
         for row, (label, var) in enumerate(
             (
@@ -250,6 +290,7 @@ class TrackpadDialog:
         root: tk.Tk,
         project_dir: Path | None,
         place: PlaceCallback | None = None,
+        modern: bool = False,
     ) -> None:
         self._root = root
         self._project_dir = project_dir
@@ -257,7 +298,7 @@ class TrackpadDialog:
         root.title("Trackpad generator")
         root.resizable(False, False)
 
-        main = ttk.Frame(root)
+        main = ttk.Frame(root, padding=8)
         main.pack(fill="both", expand=True)
 
         left = ttk.Frame(main)
@@ -265,7 +306,7 @@ class TrackpadDialog:
         self._form = _ParamForm(left, self._schedule_redraw)
 
         right = ttk.Frame(main)
-        right.pack(side="left", fill="both", expand=True, padx=(0, 8), pady=8)
+        right.pack(side="left", fill="both", expand=True, padx=(4, 8), pady=8)
         self._canvas = tk.Canvas(
             right,
             width=_PREVIEW_W,
@@ -276,11 +317,11 @@ class TrackpadDialog:
         )
         self._canvas.pack()
 
-        self._status = ttk.Label(right, text="", foreground="#B33", wraplength=_PREVIEW_W)
+        self._status = ttk.Label(right, text="", foreground="#FF6B63", wraplength=_PREVIEW_W)
         self._status.pack(anchor="w", pady=(4, 0))
 
         # -- destination ------------------------------------------------------
-        dest = ttk.LabelFrame(right, text="Library destination")
+        dest = ttk.LabelFrame(right, text="Library destination", padding=(4, 4))
         dest.pack(fill="x", pady=(8, 0))
         self._dest = tk.StringVar(value="project" if project_dir else "global")
         self._dest.trace_add("write", lambda *_: self._dest_changed())
@@ -328,11 +369,20 @@ class TrackpadDialog:
             self._place_check.configure(state="disabled")
             self._place_now.set(False)
 
-        self._generate_btn = ttk.Button(right, text="Generate", command=self._generate)
-        self._generate_btn.pack(fill="x", pady=(8, 0))
+        self._generate_btn = ttk.Button(
+            right,
+            text="Generate",
+            command=self._generate,
+            style="Accent.TButton" if modern else "TButton",
+        )
+        self._generate_btn.pack(fill="x", pady=(10, 0), ipady=3)
 
-        self._summary = tk.Text(right, height=10, width=56, state="disabled", relief="flat")
-        self._summary.pack(fill="x", pady=(8, 0))
+        self._summary = tk.Text(
+            right, height=10, width=56, state="disabled", relief="flat", padx=10, pady=8
+        )
+        if modern:
+            self._summary.configure(bg=_CARD_BG, fg=_CARD_FG)
+        self._summary.pack(fill="x", pady=(10, 0))
 
         self._redraw_pending = False
         self._schedule_redraw()
@@ -453,7 +503,8 @@ class TrackpadDialog:
 
 def run_dialog(project_dir: Path | None, place: PlaceCallback | None = None) -> int:
     root = tk.Tk()
-    TrackpadDialog(root, project_dir, place)
+    modern = apply_theme(root)
+    TrackpadDialog(root, project_dir, place, modern=modern)
     root.mainloop()
     return 0
 

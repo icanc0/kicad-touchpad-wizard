@@ -2,3 +2,4 @@
 # ~/.cache/kicad/<version>/python-environments/<plugin-id>/. It does NOT read
 # pyproject.toml. See api_plugin_manager.cpp line 767 in the KiCad source.
 kicad-python >= 0.7
+sv-ttk >= 2.6  # modern dark theme for the action dialog (pure Python)
